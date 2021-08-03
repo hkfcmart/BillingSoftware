@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using EntityFrameWork;
+using EntityFrameWork.Domain;
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Winforms
@@ -16,6 +13,7 @@ namespace Winforms
         SqlCommand cmd;
         SqlConnection sqlConnection;
         SqlDataReader dr;
+        BillingContext billingContext = new BillingContext();
         public Login()
         {
             InitializeComponent();
@@ -23,28 +21,46 @@ namespace Winforms
 
         private void Login_Load(object sender, EventArgs e)
         {
-            sqlConnection = SqlDBOperations.OpenSQLConnections();
+            //sqlConnection = SqlDBOperations.OpenSQLConnections();
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             if (txtPassword.Text != string.Empty || txtUserName.Text != string.Empty)
             {
-
-                cmd = new SqlCommand("select * from LoginDetails where username='" + txtUserName.Text + "' and password='" + txtPassword.Text + "'", sqlConnection);
-                dr = cmd.ExecuteReader();
-                if (dr.Read())
+                if (billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).Count() > 0)
                 {
-                    dr.Close();
-                    this.Hide();
-                    BillingSoftware billingPage = new();
-                    billingPage.ShowDialog();
+                    UserDetails userDetails = billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).First();
+                    if (userDetails.Password == txtPassword.Text)
+                    {
+                        this.Hide();
+                        BillingSoftware billingPage = new();
+                        billingPage.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("username and password do not match", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    dr.Close();
                     MessageBox.Show("No Account avilable with this username and password ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                //cmd = new SqlCommand("select * from LoginDetails where username='" + txtUserName.Text + "' and password='" + txtPassword.Text + "'", sqlConnection);
+                //dr = cmd.ExecuteReader();
+                //if (dr.Read())
+                //{
+                //    dr.Close();
+                //    this.Hide();
+                //    BillingSoftware billingPage = new();
+                //    billingPage.ShowDialog();
+                //}
+                //else
+                //{
+                //    dr.Close();
+                //    MessageBox.Show("No Account avilable with this username and password ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
 
             }
             else

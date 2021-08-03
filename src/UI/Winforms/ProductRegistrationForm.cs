@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace Winforms
 {
-    public partial class BillingSoftware : Form
+    public partial class ProductRegistrationForm : Form
     {
-        public BillingSoftware()
+        public ProductRegistrationForm()
         {
             InitializeComponent();
-        }
-
-        private void BtnInventry_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            Inventry inventry = new Inventry();
-            inventry.ShowDialog();
         }
     }
 }

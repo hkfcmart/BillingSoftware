@@ -30,35 +30,24 @@ namespace Winforms
         {
             if (txtConfirmPassword.Text != string.Empty || txtPassword.Text != string.Empty || txtUserName.Text != string.Empty)
             {
-                if (billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).Count() > 0)
-                {
-                    MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    UserDetails userDetails = new UserDetails() { UserName = txtUserName.Text, Password = txtPassword.Text };
-                    billingContext.UserDetails.Add(userDetails);
-                    billingContext.SaveChanges();
-                }
-                               
                 if (txtPassword.Text == txtConfirmPassword.Text)
                 {
-
-                    cmd = new SqlCommand("select * from LoginTable where username='" + txtUserName.Text + "'", sqlConnection);
-                    dr = cmd.ExecuteReader();
-                    if (dr.Read())
+                    if (billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).Count() > 0)
                     {
-                        dr.Close();
-                        MessageBox.Show("Username Already exist please try another ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Username Already exist please Login ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Hide();
+                        Login login = new Login();
+                        login.ShowDialog();
                     }
                     else
                     {
-                        dr.Close();
-                        cmd = new SqlCommand("insert into LoginTable values(@username,@password)", sqlConnection);
-                        cmd.Parameters.AddWithValue("username", txtUserName.Text);
-                        cmd.Parameters.AddWithValue("password", txtPassword.Text);
-                        cmd.ExecuteNonQuery();
+                        UserDetails userDetails = new UserDetails() { UserName = txtUserName.Text, Password = txtPassword.Text };
+                        billingContext.UserDetails.Add(userDetails);
+                        billingContext.SaveChanges();
                         MessageBox.Show("Your Account is created . Please login now.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Hide();
+                        Login login = new Login();
+                        login.ShowDialog();
                     }
                 }
                 else
@@ -79,7 +68,7 @@ namespace Winforms
 
         private void RegistrationPage_Load(object sender, EventArgs e)
         {
-            sqlConnection = SqlDBOperations.OpenSQLConnections();
+            //sqlConnection = SqlDBOperations.OpenSQLConnections();
         }
     }
 }

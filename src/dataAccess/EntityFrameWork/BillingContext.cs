@@ -7,6 +7,7 @@ namespace EntityFrameWork
     public class BillingContext : DbContext
     {
         public DbSet<UserDetails> UserDetails { get; set; }
+        public DbSet<BillInventry> BillInventry { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             if (!dbContextOptionsBuilder.IsConfigured)

@@ -29,41 +29,53 @@ namespace Winforms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvProductList = new System.Windows.Forms.DataGridView();
             this.lblBarcode = new System.Windows.Forms.Label();
             this.txtBarcode = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.SqlInvetry = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SqlInvetry)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvProductList
             // 
+            this.dgvProductList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProductList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductList.Location = new System.Drawing.Point(78, 68);
+            this.dgvProductList.Location = new System.Drawing.Point(27, 52);
             this.dgvProductList.Name = "dgvProductList";
             this.dgvProductList.RowTemplate.Height = 25;
-            this.dgvProductList.Size = new System.Drawing.Size(466, 291);
+            this.dgvProductList.Size = new System.Drawing.Size(518, 337);
             this.dgvProductList.TabIndex = 0;
             // 
             // lblBarcode
             // 
+            this.lblBarcode.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblBarcode.AutoSize = true;
-            this.lblBarcode.Location = new System.Drawing.Point(78, 26);
+            this.lblBarcode.Location = new System.Drawing.Point(72, 26);
             this.lblBarcode.Name = "lblBarcode";
             this.lblBarcode.Size = new System.Drawing.Size(50, 15);
             this.lblBarcode.TabIndex = 1;
             this.lblBarcode.Text = "Barcode";
+            this.lblBarcode.Click += new System.EventHandler(this.LblBarcode_Click);
             // 
             // txtBarcode
             // 
-            this.txtBarcode.Location = new System.Drawing.Point(159, 23);
+            this.txtBarcode.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBarcode.Location = new System.Drawing.Point(153, 23);
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Size = new System.Drawing.Size(238, 23);
             this.txtBarcode.TabIndex = 2;
+            this.txtBarcode.TextChanged += new System.EventHandler(this.TxtBarcode_TextChanged);
+            this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBarcode_KeyDown);
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(428, 23);
+            this.btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSearch.Location = new System.Drawing.Point(422, 23);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 3;
@@ -75,7 +87,7 @@ namespace Winforms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 408);
+            this.ClientSize = new System.Drawing.Size(571, 409);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtBarcode);
             this.Controls.Add(this.lblBarcode);
@@ -84,6 +96,7 @@ namespace Winforms
             this.Text = "Inventry";
             this.Load += new System.EventHandler(this.Inventry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SqlInvetry)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,5 +108,6 @@ namespace Winforms
         private System.Windows.Forms.Label lblBarcode;
         private System.Windows.Forms.TextBox txtBarcode;
         private System.Windows.Forms.Button btnSearch;
+        public System.Windows.Forms.BindingSource SqlInvetry;
     }
 }
