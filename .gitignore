@@ -1,0 +1,8 @@
+/src/dataAccess/EntityFrameWork/bin
+/src/dataAccess/EntityFrameWork/obj
+/src/dataAccess/EntityFrameWork.Domain/bin
+/src/dataAccess/EntityFrameWork.Domain/obj
+/src/dataAccess/SelfServicedDataBase/bin
+/src/dataAccess/SelfServicedDataBase/obj
+/src/UI/Winforms/bin
+/src/UI/Winforms/obj
