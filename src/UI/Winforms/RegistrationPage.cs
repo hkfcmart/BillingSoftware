@@ -61,14 +61,8 @@ namespace Winforms
             }
         }
 
-        //private void HomePage_Load(object sender, EventArgs e)
-        //{
-        //    sqlConnection = SqlDBOperations.OpenSQLConnections();
-        //}
-
         private void RegistrationPage_Load(object sender, EventArgs e)
         {
-            //sqlConnection = SqlDBOperations.OpenSQLConnections();
         }
     }
 }

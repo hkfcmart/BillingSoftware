@@ -60,7 +60,6 @@ namespace Winforms
             this.lblBarcode.Size = new System.Drawing.Size(50, 15);
             this.lblBarcode.TabIndex = 1;
             this.lblBarcode.Text = "Barcode";
-            this.lblBarcode.Click += new System.EventHandler(this.LblBarcode_Click);
             // 
             // txtBarcode
             // 
@@ -69,7 +68,6 @@ namespace Winforms
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Size = new System.Drawing.Size(238, 23);
             this.txtBarcode.TabIndex = 2;
-            this.txtBarcode.TextChanged += new System.EventHandler(this.TxtBarcode_TextChanged);
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBarcode_KeyDown);
             // 
             // btnSearch
@@ -79,7 +77,7 @@ namespace Winforms
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 3;
-            this.btnSearch.Text = "Go";
+            this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
@@ -94,7 +92,6 @@ namespace Winforms
             this.Controls.Add(this.dgvProductList);
             this.Name = "Inventry";
             this.Text = "Inventry";
-            this.Load += new System.EventHandler(this.Inventry_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SqlInvetry)).EndInit();
             this.ResumeLayout(false);

@@ -43,6 +43,7 @@ namespace Winforms
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(376, 23);
             this.txtPassword.TabIndex = 8;
+            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtUserName
             // 

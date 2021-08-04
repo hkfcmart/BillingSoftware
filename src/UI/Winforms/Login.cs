@@ -10,10 +10,7 @@ namespace Winforms
 {
     public partial class Login : Form
     {
-        SqlCommand cmd;
-        SqlConnection sqlConnection;
-        SqlDataReader dr;
-        BillingContext billingContext = new BillingContext();
+        readonly BillingContext billingContext = new();
         public Login()
         {
             InitializeComponent();
@@ -28,7 +25,7 @@ namespace Winforms
         {
             if (txtPassword.Text != string.Empty || txtUserName.Text != string.Empty)
             {
-                if (billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).Count() > 0)
+                if (billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).Any())
                 {
                     UserDetails userDetails = billingContext.UserDetails.Where(x => x.UserName == txtUserName.Text).First();
                     if (userDetails.Password == txtPassword.Text)
@@ -72,7 +69,7 @@ namespace Winforms
         private void BtnRegister_Click(object sender, EventArgs e)
         {
             this.Hide();
-            RegistrationPage homePage = new RegistrationPage();
+            RegistrationPage homePage = new();
             homePage.ShowDialog();
         }
     }

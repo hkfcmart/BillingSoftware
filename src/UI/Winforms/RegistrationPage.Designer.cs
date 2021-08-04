@@ -125,7 +125,6 @@ namespace Winforms
             this.Controls.Add(this.lblUserName);
             this.Name = "RegistrationPage";
             this.Text = "Registration Page";
-            this.Load += new System.EventHandler(this.RegistrationPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
