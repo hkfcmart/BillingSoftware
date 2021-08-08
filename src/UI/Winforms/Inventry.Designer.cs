@@ -92,6 +92,7 @@ namespace Winforms
             this.Controls.Add(this.dgvProductList);
             this.Name = "Inventry";
             this.Text = "Inventry";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Inventry_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SqlInvetry)).EndInit();
             this.ResumeLayout(false);

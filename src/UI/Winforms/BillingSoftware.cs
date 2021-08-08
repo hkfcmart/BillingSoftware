@@ -23,5 +23,19 @@ namespace Winforms
             Inventry inventry = new Inventry();
             inventry.ShowDialog();
         }
+
+        private void BillingSoftware_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            Login login = new();
+            login.ShowDialog();
+        }
+
+        private void BtnGenerateBill_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            BillingForm billingForm = new();
+            billingForm.ShowDialog();
+        }
     }
 }

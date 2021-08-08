@@ -45,6 +45,7 @@ namespace Winforms
             this.btnGenerateBill.TabIndex = 1;
             this.btnGenerateBill.Text = "Generate Bill";
             this.btnGenerateBill.UseVisualStyleBackColor = true;
+            this.btnGenerateBill.Click += new System.EventHandler(this.BtnGenerateBill_Click);
             // 
             // btnInventry
             // 
@@ -80,6 +81,7 @@ namespace Winforms
             this.Controls.Add(this.btnGenerateBill);
             this.Name = "BillingSoftware";
             this.Text = "Billing Software";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BillingSoftware_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -434,7 +434,7 @@ namespace Winforms
             this.Controls.Add(this.lblBarCode);
             this.Name = "ProductRegistrationForm";
             this.Text = "ProductRegistrationForm";
-            this.Leave += new System.EventHandler(this.ProductRegistrationForm_Leave);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProductRegistrationForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

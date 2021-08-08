@@ -51,5 +51,12 @@ namespace Winforms
         {
             SearchBarCode();
         }
+
+        private void Inventry_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            BillingSoftware billingSoftware = new();
+            billingSoftware.ShowDialog();
+        }
     }
 }

@@ -21,12 +21,6 @@ namespace Winforms
             txtBarCode.Text = barCode;
         }
 
-        private void ProductRegistrationForm_Leave(object sender, EventArgs e)
-        {
-            Inventry inventry = new();
-            inventry.ShowDialog();
-        }
-
         private void BtnRegister_Click(object sender, EventArgs e)
         {
             BillInventry billInventry = new()
@@ -41,16 +35,23 @@ namespace Winforms
                 ExpiryDate = dtpExpiryDate.Value,
                 ShelfNo = Int16.Parse(txtShelfNo.Text),
                 MRP = Int16.Parse(txtMRP.Text),
-                PurchasePrice = double.Parse(txtPurchasePrice.Text),
-                SellingPrice = double.Parse(txtSellingPrice.Text),
+                PurchasePrice = decimal.Parse(txtPurchasePrice.Text),
+                SellingPrice = decimal.Parse(txtSellingPrice.Text),
                 Quantity = int.Parse(txtQuantity.Text),
                 BatchNo = int.Parse(txtBatchNo.Text),
                 HSNCode = int.Parse(txtHSNCode.Text),
-                Discount = double.Parse(txtDiscount.Text),
-                GST = double.Parse(txtGST.Text)
+                Discount = decimal.Parse(txtDiscount.Text),
+                GST = decimal.Parse(txtGST.Text)
             };
             billingContext.BillInventry.Add(billInventry);
             billingContext.SaveChanges();
+            Inventry inventry = new();
+            inventry.ShowDialog();
+        }
+
+        private void ProductRegistrationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
             Inventry inventry = new();
             inventry.ShowDialog();
         }
