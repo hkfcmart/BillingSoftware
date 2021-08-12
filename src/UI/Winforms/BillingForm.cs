@@ -121,7 +121,7 @@ namespace Winforms
         public void Print()
         {
             var doc = new PrintDocument();
-            var paperSize = new PaperSize("Custom", 520, 820);
+            var paperSize = new PaperSize("Custom", 520, 2000);
             doc.DefaultPageSettings.PaperSize = paperSize;
             doc.PrintPage += new PrintPageEventHandler(ProvideContent);
             doc.Print();
@@ -161,8 +161,11 @@ namespace Winforms
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
             graphics.DrawString("Customer Name: " + txtCustomerName.Text , font, new SolidBrush(System.Drawing.Color.Black), rect, format);
-            startY = startY + (int)(font.GetHeight() + 5);
             font = new Font(System.Drawing.FontFamily.GenericSansSerif, 10, System.Drawing.FontStyle.Bold);
+            startY = startY + (int)(font.GetHeight() + 5);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            graphics.DrawString("-".PadRight(100, '-'), font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 100, (int)(font.GetHeight() + 5));
             graphics.DrawString("Product", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startX = startX + 100;
@@ -178,12 +181,16 @@ namespace Winforms
             rect = new Rectangle(startX, startY, 60, (int)(font.GetHeight() + 5));
             graphics.DrawString("Amount" + txtCustomerName.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
+            startX = 0;
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            graphics.DrawString("-".PadRight(80, '-'), font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
             font = new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular);
+            int NoOfLines = 1;
             foreach (var item in billDisplays)
-            {
-                startX = 0;                
+            {                                
                 format.Alignment = StringAlignment.Near;
-                int NoOfLines = 1;                
+                NoOfLines = 1;                
                 if (item.ProductName.Length > 15)
                 {
                     format.FormatFlags = StringFormatFlags.LineLimit;
@@ -206,25 +213,52 @@ namespace Winforms
                 rect = new Rectangle(startX, startY, 60, (int)(font.GetHeight() + 5));
                 graphics.DrawString(item.SubTotal.ToString(), font, new SolidBrush(System.Drawing.Color.Black), rect, format);
                 startY = startY + (int)(font.GetHeight() * NoOfLines + 5);
+                startX = 0;
             }
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("-".PadRight(80, '-'));
-            sb.Append("Sub Total: ".PadLeft(13 + 5 + 6));
-            sb.AppendLine(string.Format("{0:0.00}", txtSubTotal.Text));
-            sb.Append("GST: ".PadLeft(13 + 5 + 6));
-            sb.AppendLine(txtGST.Text);
-            sb.AppendLine("=".PadRight(50, '='));
-
-            sb.Append("Bill Total:".PadLeft(15 + 5 + 6));
-            sb.AppendLine((txtBillAmount.Text).ToString());
-            sb.AppendLine("=".PadRight(50, '='));
-            sb.AppendLine("Thank You".PadLeft(23));
+            startY = startY + (int)(font.GetHeight() * NoOfLines + 5);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            font = new Font(System.Drawing.FontFamily.GenericSansSerif, 10, System.Drawing.FontStyle.Bold);
+            format.Alignment = StringAlignment.Center;
+            graphics.DrawString("-".PadRight(80, '-'), font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
+            font = new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            format.Alignment = StringAlignment.Far;
+            graphics.DrawString("Sub Total: " + txtSubTotal.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            graphics.DrawString("GST: " + txtGST.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            graphics.DrawString("=".PadRight(50, '=') + txtGST.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
+            font = new Font(System.Drawing.FontFamily.GenericSansSerif, 10, System.Drawing.FontStyle.Bold);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            graphics.DrawString("Bill Total:" + txtBillAmount.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
+            font = new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            graphics.DrawString("=".PadRight(50, '='), font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            startY = startY + (int)(font.GetHeight() + 5);
+            font = new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Bold);
+            rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            format.Alignment = StringAlignment.Center;
+            graphics.DrawString("Thank You", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            //StringBuilder sb = new StringBuilder();
+            //sb.AppendLine("-".PadRight(80, '-'));
+            //sb.Append("Sub Total: ".PadLeft(13 + 5 + 6));
+            //sb.AppendLine(string.Format("{0:0.00}", txtSubTotal.Text));
+            //sb.Append("GST: ".PadLeft(13 + 5 + 6));
+            //sb.AppendLine(txtGST.Text);                               
+            //sb.AppendLine("=".PadRight(50, '='));
+            //sb.AppendLine("=".PadRight(50, '='));
+            //sb.AppendLine("Thank You".PadLeft(23));
             //sb.AppendLine("-".PadRight(50, '-'));
-            var printText = new PrintText(sb.ToString(), new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular));
-            startX = 0;
+            //var printText = new PrintText(sb.ToString(), new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular));
+            //startX = 0;
 
-            graphics.DrawString(printText.Text, new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular),
-                                new SolidBrush(System.Drawing.Color.Black), startX, startY);
+            //graphics.DrawString(printText.Text, new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular),
+            //                    new SolidBrush(System.Drawing.Color.Black), startX, startY);
         }
     }
 }
