@@ -35,13 +35,13 @@ namespace Winforms
                 ExpiryDate = dtpExpiryDate.Value,
                 ShelfNo = Int16.Parse(txtShelfNo.Text),
                 MRP = Int16.Parse(txtMRP.Text),
-                PurchasePrice = decimal.Parse(txtPurchasePrice.Text),
-                SellingPrice = decimal.Parse(txtSellingPrice.Text),
+                PurchasePrice = double.Parse(txtPurchasePrice.Text),
+                SellingPrice = double.Parse(txtSellingPrice.Text),
                 Quantity = int.Parse(txtQuantity.Text),
                 BatchNo = int.Parse(txtBatchNo.Text),
-                HSNCode = int.Parse(txtHSNCode.Text),
-                Discount = decimal.Parse(txtDiscount.Text),
-                GST = decimal.Parse(txtGST.Text)
+                HSNCode = txtHSNCode.Text,
+                Discount = double.Parse(txtDiscount.Text),
+                GST = double.Parse(txtGST.Text)
             };
             billingContext.BillInventry.Add(billInventry);
             billingContext.SaveChanges();

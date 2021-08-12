@@ -11,8 +11,8 @@ namespace EntityFrameWork.Domain
         public int Id { get; set; }
         public string BarCode { get; set; }
         public string ProductName { get; set; }
-        public int HSNCode { get; set; }
-        public Decimal GST { get; set; }
+        public string HSNCode { get; set; }
+        public double GST { get; set; }
         public string BrandName { get; set; }
         public string Categories { get; set; }
         public string Vendor { get; set; }
@@ -20,10 +20,10 @@ namespace EntityFrameWork.Domain
         public DateTime PurchasedDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public int ShelfNo { get; set; }        
-        public Decimal MRP { get; set; }
-        public Decimal PurchasePrice { get; set; }
-        public Decimal SellingPrice { get; set; }
-        public Decimal Discount { get; set; }
+        public double MRP { get; set; }
+        public double PurchasePrice { get; set; }
+        public double SellingPrice { get; set; }
+        public double Discount { get; set; }
         public int Quantity { get; set; }
         public int BatchNo { get; set; }
     }

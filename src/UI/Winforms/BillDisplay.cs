@@ -10,10 +10,10 @@ namespace Winforms
     {
         public int Index { get; set; }
         public string ProductName { get; set; }
-        public int HSNCode { get; set; }
-        public Decimal MRP { get; set; }
-        public Decimal SellingPrice { get; set; }
+        public string HSNCode { get; set; }
+        public double MRP { get; set; }
+        public double SellingPrice { get; set; }
         public int Quantity { get; set; }
-        public Decimal SubTotal { get; set; }
+        public double SubTotal { get; set; }
     }
 }
