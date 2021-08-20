@@ -15,45 +15,74 @@ namespace Winforms
     public partial class ProductRegistrationForm : Form
     {
         BillingContext billingContext = new();
-        public ProductRegistrationForm(string barCode = "")
+        public ProductRegistrationForm(string barCode = "", bool billingCall = false)
         {
             InitializeComponent();
             txtBarCode.Text = barCode;
+            BillingCall = billingCall;
         }
+
+        public bool BillingCall { get; }
 
         private void BtnRegister_Click(object sender, EventArgs e)
         {
-            BillInventry billInventry = new()
-            {
-                BarCode = txtBarCode.Text,
-                ProductName = txtProductName.Text,
-                BrandName = txtBrandName.Text,
-                Categories = txtCategories.Text,
-                Vendor = txtVendor.Text,
-                ManufacturedDate = dtpManufacturedDate.Value,
-                PurchasedDate = dtpPurchasedDate.Value,
-                ExpiryDate = dtpExpiryDate.Value,
-                ShelfNo = Int16.Parse(txtShelfNo.Text),
-                MRP = Int16.Parse(txtMRP.Text),
-                PurchasePrice = double.Parse(txtPurchasePrice.Text),
-                SellingPrice = double.Parse(txtSellingPrice.Text),
-                Quantity = int.Parse(txtQuantity.Text),
-                BatchNo = int.Parse(txtBatchNo.Text),
-                HSNCode = txtHSNCode.Text,
-                Discount = double.Parse(txtDiscount.Text),
-                GST = double.Parse(txtGST.Text)
-            };
+            BillInventry billInventry = new();
+            if(!string.IsNullOrWhiteSpace(txtBarCode.Text))
+                billInventry.BarCode = txtBarCode.Text;
+            if (!string.IsNullOrWhiteSpace(txtProductName.Text))
+                billInventry.ProductName = txtProductName.Text;
+            if (!string.IsNullOrWhiteSpace(txtBrandName.Text))
+                billInventry.BrandName = txtBrandName.Text;
+            if (!string.IsNullOrWhiteSpace(txtCategories.Text))
+                billInventry.Categories = txtCategories.Text;
+            if (!string.IsNullOrWhiteSpace(txtVendor.Text))
+                billInventry.Vendor = txtVendor.Text;
+            //if (!string.IsNullOrEmpty(txtProductName.Text))
+            //    billInventry.ManufacturedDate = dtpManufacturedDate.Value;
+            //if (!string.IsNullOrEmpty(txtProductName.Text))
+            //    billInventry.PurchasedDate = dtpPurchasedDate.Value;
+            //if (!string.IsNullOrEmpty(txtProductName.Text))
+            //    billInventry.ExpiryDate = dtpExpiryDate.Value;
+            if (!string.IsNullOrWhiteSpace(txtShelfNo.Text))
+                billInventry.ShelfNo = Int16.Parse(txtShelfNo.Text);
+            if (!string.IsNullOrWhiteSpace(txtMRP.Text))
+                billInventry.MRP = Int16.Parse(txtMRP.Text);
+            if (!string.IsNullOrWhiteSpace(txtPurchasePrice.Text))
+                billInventry.PurchasePrice = double.Parse(txtPurchasePrice.Text);
+            if (!string.IsNullOrWhiteSpace(txtSellingPrice.Text))
+                billInventry.SellingPrice = double.Parse(txtSellingPrice.Text);
+            if (!string.IsNullOrWhiteSpace(txtQuantity.Text))
+                billInventry.Quantity = int.Parse(txtQuantity.Text);
+            if (!string.IsNullOrWhiteSpace(txtBatchNo.Text))
+                billInventry.BatchNo = int.Parse(txtBatchNo.Text);
+            if (!string.IsNullOrWhiteSpace(txtHSNCode.Text))
+                billInventry.HSNCode = txtHSNCode.Text;
+            if (!string.IsNullOrWhiteSpace(txtDiscount.Text))
+                billInventry.Discount = double.Parse(txtDiscount.Text);
+            if (!string.IsNullOrWhiteSpace(txtGST.Text))
+                billInventry.GST = double.Parse(txtGST.Text);
             billingContext.BillInventry.Add(billInventry);
             billingContext.SaveChanges();
-            Inventry inventry = new();
-            inventry.ShowDialog();
+            if (!BillingCall)
+            {
+                this.Hide();
+                Inventry inventry = new();
+                inventry.ShowDialog(); 
+            }
+            else
+            {
+                this.Hide();
+            }
         }
 
         private void ProductRegistrationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Hide();
-            Inventry inventry = new();
-            inventry.ShowDialog();
+            if(!BillingCall)
+            { 
+                Inventry inventry = new();
+                inventry.ShowDialog();
+            }
         }
     }
 }

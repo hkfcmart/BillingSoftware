@@ -39,9 +39,6 @@ namespace Winforms
             this.lblCategories = new System.Windows.Forms.Label();
             this.txtVendor = new System.Windows.Forms.TextBox();
             this.lblVendor = new System.Windows.Forms.Label();
-            this.lblManufacturedDate = new System.Windows.Forms.Label();
-            this.lblPurchasedDate = new System.Windows.Forms.Label();
-            this.lblExpiryDate = new System.Windows.Forms.Label();
             this.txtPurchasePrice = new System.Windows.Forms.TextBox();
             this.lblPurchasePrice = new System.Windows.Forms.Label();
             this.txtSellingPrice = new System.Windows.Forms.TextBox();
@@ -62,9 +59,6 @@ namespace Winforms
             this.txtHSNCode = new System.Windows.Forms.TextBox();
             this.lblProductRegistrationForm = new System.Windows.Forms.Label();
             this.btnRegister = new System.Windows.Forms.Button();
-            this.dtpManufacturedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpPurchasedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpExpiryDate = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // lblBarCode
@@ -157,40 +151,10 @@ namespace Winforms
             this.lblVendor.TabIndex = 8;
             this.lblVendor.Text = "Vendor";
             // 
-            // lblManufacturedDate
-            // 
-            this.lblManufacturedDate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblManufacturedDate.AutoSize = true;
-            this.lblManufacturedDate.Location = new System.Drawing.Point(69, 189);
-            this.lblManufacturedDate.Name = "lblManufacturedDate";
-            this.lblManufacturedDate.Size = new System.Drawing.Size(106, 15);
-            this.lblManufacturedDate.TabIndex = 10;
-            this.lblManufacturedDate.Text = "ManufacturedDate";
-            // 
-            // lblPurchasedDate
-            // 
-            this.lblPurchasedDate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblPurchasedDate.AutoSize = true;
-            this.lblPurchasedDate.Location = new System.Drawing.Point(69, 220);
-            this.lblPurchasedDate.Name = "lblPurchasedDate";
-            this.lblPurchasedDate.Size = new System.Drawing.Size(86, 15);
-            this.lblPurchasedDate.TabIndex = 12;
-            this.lblPurchasedDate.Text = "PurchasedDate";
-            // 
-            // lblExpiryDate
-            // 
-            this.lblExpiryDate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblExpiryDate.AutoSize = true;
-            this.lblExpiryDate.Location = new System.Drawing.Point(69, 252);
-            this.lblExpiryDate.Name = "lblExpiryDate";
-            this.lblExpiryDate.Size = new System.Drawing.Size(63, 15);
-            this.lblExpiryDate.TabIndex = 14;
-            this.lblExpiryDate.Text = "ExpiryDate";
-            // 
             // txtPurchasePrice
             // 
             this.txtPurchasePrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtPurchasePrice.Location = new System.Drawing.Point(194, 344);
+            this.txtPurchasePrice.Location = new System.Drawing.Point(194, 253);
             this.txtPurchasePrice.Name = "txtPurchasePrice";
             this.txtPurchasePrice.Size = new System.Drawing.Size(270, 23);
             this.txtPurchasePrice.TabIndex = 17;
@@ -199,7 +163,7 @@ namespace Winforms
             // 
             this.lblPurchasePrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblPurchasePrice.AutoSize = true;
-            this.lblPurchasePrice.Location = new System.Drawing.Point(67, 350);
+            this.lblPurchasePrice.Location = new System.Drawing.Point(67, 259);
             this.lblPurchasePrice.Name = "lblPurchasePrice";
             this.lblPurchasePrice.Size = new System.Drawing.Size(81, 15);
             this.lblPurchasePrice.TabIndex = 16;
@@ -208,7 +172,7 @@ namespace Winforms
             // txtSellingPrice
             // 
             this.txtSellingPrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtSellingPrice.Location = new System.Drawing.Point(194, 375);
+            this.txtSellingPrice.Location = new System.Drawing.Point(194, 284);
             this.txtSellingPrice.Name = "txtSellingPrice";
             this.txtSellingPrice.Size = new System.Drawing.Size(270, 23);
             this.txtSellingPrice.TabIndex = 19;
@@ -217,7 +181,7 @@ namespace Winforms
             // 
             this.lblSellingPrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblSellingPrice.AutoSize = true;
-            this.lblSellingPrice.Location = new System.Drawing.Point(68, 380);
+            this.lblSellingPrice.Location = new System.Drawing.Point(68, 289);
             this.lblSellingPrice.Name = "lblSellingPrice";
             this.lblSellingPrice.Size = new System.Drawing.Size(68, 15);
             this.lblSellingPrice.TabIndex = 18;
@@ -226,7 +190,7 @@ namespace Winforms
             // txtShelfNo
             // 
             this.txtShelfNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtShelfNo.Location = new System.Drawing.Point(194, 280);
+            this.txtShelfNo.Location = new System.Drawing.Point(194, 189);
             this.txtShelfNo.Name = "txtShelfNo";
             this.txtShelfNo.Size = new System.Drawing.Size(270, 23);
             this.txtShelfNo.TabIndex = 21;
@@ -235,7 +199,7 @@ namespace Winforms
             // 
             this.lblShelfNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblShelfNo.AutoSize = true;
-            this.lblShelfNo.Location = new System.Drawing.Point(68, 286);
+            this.lblShelfNo.Location = new System.Drawing.Point(68, 195);
             this.lblShelfNo.Name = "lblShelfNo";
             this.lblShelfNo.Size = new System.Drawing.Size(49, 15);
             this.lblShelfNo.TabIndex = 20;
@@ -244,7 +208,7 @@ namespace Winforms
             // txtBatchNo
             // 
             this.txtBatchNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBatchNo.Location = new System.Drawing.Point(194, 435);
+            this.txtBatchNo.Location = new System.Drawing.Point(194, 344);
             this.txtBatchNo.Name = "txtBatchNo";
             this.txtBatchNo.Size = new System.Drawing.Size(270, 23);
             this.txtBatchNo.TabIndex = 23;
@@ -253,7 +217,7 @@ namespace Winforms
             // 
             this.lblQuantity.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblQuantity.AutoSize = true;
-            this.lblQuantity.Location = new System.Drawing.Point(68, 409);
+            this.lblQuantity.Location = new System.Drawing.Point(68, 318);
             this.lblQuantity.Name = "lblQuantity";
             this.lblQuantity.Size = new System.Drawing.Size(53, 15);
             this.lblQuantity.TabIndex = 22;
@@ -263,7 +227,7 @@ namespace Winforms
             // 
             this.lblDiscount.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblDiscount.AutoSize = true;
-            this.lblDiscount.Location = new System.Drawing.Point(69, 500);
+            this.lblDiscount.Location = new System.Drawing.Point(69, 409);
             this.lblDiscount.Name = "lblDiscount";
             this.lblDiscount.Size = new System.Drawing.Size(54, 15);
             this.lblDiscount.TabIndex = 22;
@@ -272,7 +236,7 @@ namespace Winforms
             // txtGST
             // 
             this.txtGST.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtGST.Location = new System.Drawing.Point(194, 524);
+            this.txtGST.Location = new System.Drawing.Point(194, 433);
             this.txtGST.Name = "txtGST";
             this.txtGST.Size = new System.Drawing.Size(270, 23);
             this.txtGST.TabIndex = 23;
@@ -281,7 +245,7 @@ namespace Winforms
             // 
             this.lblGST.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblGST.AutoSize = true;
-            this.lblGST.Location = new System.Drawing.Point(69, 531);
+            this.lblGST.Location = new System.Drawing.Point(69, 440);
             this.lblGST.Name = "lblGST";
             this.lblGST.Size = new System.Drawing.Size(27, 15);
             this.lblGST.TabIndex = 22;
@@ -291,7 +255,7 @@ namespace Winforms
             // 
             this.lblMRP.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblMRP.AutoSize = true;
-            this.lblMRP.Location = new System.Drawing.Point(70, 316);
+            this.lblMRP.Location = new System.Drawing.Point(70, 225);
             this.lblMRP.Name = "lblMRP";
             this.lblMRP.Size = new System.Drawing.Size(32, 15);
             this.lblMRP.TabIndex = 20;
@@ -300,7 +264,7 @@ namespace Winforms
             // txtMRP
             // 
             this.txtMRP.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMRP.Location = new System.Drawing.Point(194, 312);
+            this.txtMRP.Location = new System.Drawing.Point(194, 221);
             this.txtMRP.Name = "txtMRP";
             this.txtMRP.Size = new System.Drawing.Size(270, 23);
             this.txtMRP.TabIndex = 21;
@@ -308,7 +272,7 @@ namespace Winforms
             // txtQuantity
             // 
             this.txtQuantity.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtQuantity.Location = new System.Drawing.Point(194, 405);
+            this.txtQuantity.Location = new System.Drawing.Point(194, 314);
             this.txtQuantity.Name = "txtQuantity";
             this.txtQuantity.Size = new System.Drawing.Size(270, 23);
             this.txtQuantity.TabIndex = 23;
@@ -317,7 +281,7 @@ namespace Winforms
             // 
             this.lblHSNCode.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblHSNCode.AutoSize = true;
-            this.lblHSNCode.Location = new System.Drawing.Point(67, 468);
+            this.lblHSNCode.Location = new System.Drawing.Point(67, 377);
             this.lblHSNCode.Name = "lblHSNCode";
             this.lblHSNCode.Size = new System.Drawing.Size(59, 15);
             this.lblHSNCode.TabIndex = 22;
@@ -326,7 +290,7 @@ namespace Winforms
             // txtDiscount
             // 
             this.txtDiscount.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtDiscount.Location = new System.Drawing.Point(194, 495);
+            this.txtDiscount.Location = new System.Drawing.Point(194, 404);
             this.txtDiscount.Name = "txtDiscount";
             this.txtDiscount.Size = new System.Drawing.Size(270, 23);
             this.txtDiscount.TabIndex = 23;
@@ -335,7 +299,7 @@ namespace Winforms
             // 
             this.lblBatchNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblBatchNo.AutoSize = true;
-            this.lblBatchNo.Location = new System.Drawing.Point(68, 439);
+            this.lblBatchNo.Location = new System.Drawing.Point(68, 348);
             this.lblBatchNo.Name = "lblBatchNo";
             this.lblBatchNo.Size = new System.Drawing.Size(53, 15);
             this.lblBatchNo.TabIndex = 22;
@@ -344,7 +308,7 @@ namespace Winforms
             // txtHSNCode
             // 
             this.txtHSNCode.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtHSNCode.Location = new System.Drawing.Point(194, 464);
+            this.txtHSNCode.Location = new System.Drawing.Point(194, 373);
             this.txtHSNCode.Name = "txtHSNCode";
             this.txtHSNCode.Size = new System.Drawing.Size(270, 23);
             this.txtHSNCode.TabIndex = 23;
@@ -362,7 +326,7 @@ namespace Winforms
             // 
             // btnRegister
             // 
-            this.btnRegister.Location = new System.Drawing.Point(284, 555);
+            this.btnRegister.Location = new System.Drawing.Point(284, 464);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(75, 23);
             this.btnRegister.TabIndex = 25;
@@ -370,35 +334,11 @@ namespace Winforms
             this.btnRegister.UseVisualStyleBackColor = true;
             this.btnRegister.Click += new System.EventHandler(this.BtnRegister_Click);
             // 
-            // dtpManufacturedDate
-            // 
-            this.dtpManufacturedDate.Location = new System.Drawing.Point(194, 189);
-            this.dtpManufacturedDate.Name = "dtpManufacturedDate";
-            this.dtpManufacturedDate.Size = new System.Drawing.Size(270, 23);
-            this.dtpManufacturedDate.TabIndex = 26;
-            // 
-            // dtpPurchasedDate
-            // 
-            this.dtpPurchasedDate.Location = new System.Drawing.Point(194, 218);
-            this.dtpPurchasedDate.Name = "dtpPurchasedDate";
-            this.dtpPurchasedDate.Size = new System.Drawing.Size(270, 23);
-            this.dtpPurchasedDate.TabIndex = 27;
-            // 
-            // dtpExpiryDate
-            // 
-            this.dtpExpiryDate.Location = new System.Drawing.Point(194, 244);
-            this.dtpExpiryDate.Name = "dtpExpiryDate";
-            this.dtpExpiryDate.Size = new System.Drawing.Size(270, 23);
-            this.dtpExpiryDate.TabIndex = 28;
-            // 
             // ProductRegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 590);
-            this.Controls.Add(this.dtpExpiryDate);
-            this.Controls.Add(this.dtpPurchasedDate);
-            this.Controls.Add(this.dtpManufacturedDate);
+            this.ClientSize = new System.Drawing.Size(524, 495);
             this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.lblProductRegistrationForm);
             this.Controls.Add(this.txtHSNCode);
@@ -419,9 +359,6 @@ namespace Winforms
             this.Controls.Add(this.lblSellingPrice);
             this.Controls.Add(this.txtPurchasePrice);
             this.Controls.Add(this.lblPurchasePrice);
-            this.Controls.Add(this.lblExpiryDate);
-            this.Controls.Add(this.lblPurchasedDate);
-            this.Controls.Add(this.lblManufacturedDate);
             this.Controls.Add(this.txtVendor);
             this.Controls.Add(this.lblVendor);
             this.Controls.Add(this.txtCategories);
@@ -452,9 +389,6 @@ namespace Winforms
         private System.Windows.Forms.Label lblCategories;
         private System.Windows.Forms.TextBox txtVendor;
         private System.Windows.Forms.Label lblVendor;
-        private System.Windows.Forms.Label lblManufacturedDate;
-        private System.Windows.Forms.Label lblPurchasedDate;
-        private System.Windows.Forms.Label lblExpiryDate;
         private System.Windows.Forms.TextBox txtPurchasePrice;
         private System.Windows.Forms.Label lblPurchasePrice;
         private System.Windows.Forms.TextBox txtSellingPrice;
@@ -475,8 +409,5 @@ namespace Winforms
         private System.Windows.Forms.TextBox txtHSNCode;
         private System.Windows.Forms.Label lblProductRegistrationForm;
         private System.Windows.Forms.Button btnRegister;
-        private System.Windows.Forms.DateTimePicker dtpManufacturedDate;
-        private System.Windows.Forms.DateTimePicker dtpPurchasedDate;
-        private System.Windows.Forms.DateTimePicker dtpExpiryDate;
     }
 }

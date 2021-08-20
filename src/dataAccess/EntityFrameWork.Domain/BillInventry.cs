@@ -16,9 +16,9 @@ namespace EntityFrameWork.Domain
         public string BrandName { get; set; }
         public string Categories { get; set; }
         public string Vendor { get; set; }
-        public DateTime ManufacturedDate { get; set; }
-        public DateTime PurchasedDate { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        //public DateTime ManufacturedDate { get; set; }
+        //public DateTime PurchasedDate { get; set; }
+        //public DateTime ExpiryDate { get; set; }
         public int ShelfNo { get; set; }        
         public double MRP { get; set; }
         public double PurchasePrice { get; set; }

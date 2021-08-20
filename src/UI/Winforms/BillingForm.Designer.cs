@@ -360,7 +360,6 @@ namespace Winforms
         private System.Windows.Forms.TextBox txtBarcode;
         private System.Windows.Forms.Label lblBarcode;
         private System.Windows.Forms.DataGridView dgvProductList;
-        private System.Windows.Forms.BindingSource bsBillingList;
         private System.Windows.Forms.ComboBox cbxconflictItem;
         private System.Windows.Forms.PictureBox PBHeader;
         private System.Windows.Forms.Label lblSubTotal;
@@ -375,5 +374,6 @@ namespace Winforms
         private System.Windows.Forms.TextBox txtSavings;
         private System.Windows.Forms.Label lblSavings;
         private System.Windows.Forms.Button btnPrintReciept;
+        public System.Windows.Forms.BindingSource bsBillingList;
     }
 }

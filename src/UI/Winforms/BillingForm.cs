@@ -21,6 +21,7 @@ namespace Winforms
             InitializeComponent();
             dgvProductList.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
+        public bool NewProduct { get; set; }
         readonly BillingContext billingContext = new();
         List<BillInventry> billInventries = new();
         List<BillDisplay> billDisplays = new();
@@ -28,6 +29,11 @@ namespace Winforms
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             SearchBarCode();
+            if (NewProduct)
+            {
+                SearchBarCode();
+                NewProduct = false;
+            }
         }
         private void SearchBarCode()
         {
@@ -64,18 +70,22 @@ namespace Winforms
                         SubTotal = billInventry.SellingPrice
                     });
                 }
+                bsBillingList.DataSource = billDisplays;
+                dgvProductList.DataSource = bsBillingList;
+                //dgvProductList.Update();
+                //dgvProductList.Refresh();
+                //dgvProductList.Rows.Add(billDisplays);
+                txtBarcode.Text = "";
+                BillCalculation();
             }
             else
             {
                 MessageBox.Show("No Product with Barcode Found", "NO Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //this.Hide();
-                //ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text);
-                //productRegistrationForm.ShowDialog();
-            }
-            bsBillingList.DataSource = billDisplays;
-            dgvProductList.DataSource = bsBillingList;
-            txtBarcode.Text = "";
-            BillCalculation();
+                ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text, true);
+                productRegistrationForm.ShowDialog();
+                NewProduct = true;
+            }            
         }
 
         private void BillCalculation()
@@ -105,6 +115,11 @@ namespace Winforms
             if (e.KeyCode == Keys.Enter)
             {
                 SearchBarCode();
+                if (NewProduct)
+                {
+                    SearchBarCode();
+                    NewProduct = false;
+                }
             }
         }
 
