@@ -8,6 +8,8 @@ namespace EntityFrameWork
     {
         public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<BillInventry> BillInventry { get; set; }
+        public DbSet<MontlyTable> MontlyTable { get; set; }
+        public DbSet<DailyTable> DailyTable { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             if (!dbContextOptionsBuilder.IsConfigured)

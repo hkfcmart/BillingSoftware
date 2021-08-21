@@ -23,9 +23,11 @@ namespace Winforms
         }
 
         public bool BillingCall { get; }
+        public string ProductName { get; set; }
 
         private void BtnRegister_Click(object sender, EventArgs e)
         {
+            ProductName = txtProductName.Text;
             BillInventry billInventry = new();
             if(!string.IsNullOrWhiteSpace(txtBarCode.Text))
                 billInventry.BarCode = txtBarCode.Text;
@@ -61,8 +63,20 @@ namespace Winforms
                 billInventry.Discount = double.Parse(txtDiscount.Text);
             if (!string.IsNullOrWhiteSpace(txtGST.Text))
                 billInventry.GST = double.Parse(txtGST.Text);
-            billingContext.BillInventry.Add(billInventry);
-            billingContext.SaveChanges();
+            if(string.IsNullOrWhiteSpace(billInventry.BarCode))
+            {
+                if(!billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).Any())
+                {
+                    DailyTable dailyTable = CreateDailyTableRow(billInventry);
+                    billingContext.DailyTable.Add(dailyTable);
+                    billingContext.SaveChanges();
+                }                    
+            }
+            else
+            {
+                billingContext.BillInventry.Add(billInventry);
+                billingContext.SaveChanges();
+            }            
             if (!BillingCall)
             {
                 this.Hide();
@@ -74,7 +88,31 @@ namespace Winforms
                 this.Hide();
             }
         }
-
+        private static DailyTable CreateDailyTableRow(BillInventry billInventry)
+        {
+            DailyTable row = new();
+            if (!string.IsNullOrWhiteSpace(billInventry.BarCode))
+                row.BarCode = billInventry.BarCode;
+            if (!string.IsNullOrWhiteSpace(billInventry.ProductName))
+                row.ProductName = billInventry.ProductName;
+            if (!string.IsNullOrWhiteSpace(billInventry.BrandName))
+                row.BrandName = billInventry.BrandName;
+            if (!string.IsNullOrWhiteSpace(billInventry.Categories))
+                row.Categories = billInventry.Categories;
+            if (!string.IsNullOrWhiteSpace(billInventry.Vendor))
+                row.Vendor = billInventry.Vendor;
+            row.ShelfNo = billInventry.ShelfNo;
+            row.MRP = billInventry.MRP;
+            row.PurchasePrice = billInventry.PurchasePrice;
+            row.SellingPrice = billInventry.SellingPrice;
+            row.BatchNo = billInventry.BatchNo;
+            row.Quantity = billInventry.Quantity;
+            if (!string.IsNullOrWhiteSpace(billInventry.HSNCode))
+                row.HSNCode = billInventry.HSNCode;
+            row.Discount = billInventry.Discount;
+            row.GST = billInventry.GST;
+            return row;
+        }
         private void ProductRegistrationForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Hide();

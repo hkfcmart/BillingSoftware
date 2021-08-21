@@ -20,7 +20,7 @@ namespace Winforms
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Inventry());
+            Application.Run(new Login());
         }
     }
 }

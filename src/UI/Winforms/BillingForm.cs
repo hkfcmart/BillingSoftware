@@ -28,12 +28,48 @@ namespace Winforms
         int itemCount = 1;
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            SearchBarCode();
-            if (NewProduct)
+            if(string.IsNullOrWhiteSpace(txtBarcode.Text))
+            {
+                ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text, true);
+                productRegistrationForm.ShowDialog();
+                string productName = productRegistrationForm.ProductName;
+                if (billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == productName).Any())
+                {
+                    DailyTable dailyTable = billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == productName).First();
+                    BillInventry billInventry = new()
+                    {
+                        ProductName = dailyTable.ProductName,
+                        MRP = dailyTable.MRP,
+                        SellingPrice = dailyTable.SellingPrice,
+                        Quantity = 1
+                    };
+                    billInventries.Add(billInventry);
+                    billDisplays.Add(new BillDisplay
+                    {
+                        Index = itemCount++,
+                        HSNCode = billInventry.HSNCode,
+                        ProductName = billInventry.ProductName,
+                        MRP = billInventry.MRP,
+                        SellingPrice = billInventry.SellingPrice,
+                        Quantity = 1,
+                        SubTotal = billInventry.SellingPrice
+                    });
+                    bsBillingList.DataSource = new();
+                    bsBillingList.DataSource = billDisplays;
+                    dgvProductList.DataSource = bsBillingList;
+                    txtBarcode.Text = "";
+                    BillCalculation(); 
+                }
+            }
+            else
             {
                 SearchBarCode();
-                NewProduct = false;
-            }
+                if (NewProduct)
+                {
+                    SearchBarCode();
+                    NewProduct = false;
+                }
+            }            
         }
         private void SearchBarCode()
         {
@@ -42,9 +78,15 @@ namespace Winforms
             {
                 int index = billInventries.FindIndex(x => x.BarCode == barCode);
                 billDisplays[index].Quantity++;
-                billDisplays[index].SubTotal = billDisplays[index].SellingPrice * billDisplays[index].Quantity;
-                dgvProductList.Rows[index].Cells[4].Value = billDisplays[index].Quantity++;
-                dgvProductList.Rows[index].Cells[5].Value = Math.Round(billDisplays[index].SubTotal, 2);
+                billInventries[index].Quantity++;
+                billDisplays[index].SubTotal = Math.Round(billDisplays[index].SellingPrice * billDisplays[index].Quantity, 2);
+                //dgvProductList.Rows[index].Cells[5].Value = billDisplays[index].Quantity++;
+                //dgvProductList.Rows[index].Cells[6].Value = billDisplays[index].SubTotal;
+                bsBillingList.DataSource = new();
+                bsBillingList.DataSource = billDisplays;
+                dgvProductList.DataSource = bsBillingList;
+                txtBarcode.Text = "";
+                BillCalculation();
             }
             else if (billingContext.BillInventry.Where(x => x.BarCode == barCode).Any())
             {
@@ -58,6 +100,7 @@ namespace Winforms
                 else
                 {
                     BillInventry billInventry = billingContext.BillInventry.Where(x => x.BarCode == barCode).ToList().First();
+                    billInventry.Quantity = 1;
                     billInventries.Add(billInventry);
                     billDisplays.Add(new BillDisplay
                     {
@@ -70,11 +113,9 @@ namespace Winforms
                         SubTotal = billInventry.SellingPrice
                     });
                 }
+                bsBillingList.DataSource = new();
                 bsBillingList.DataSource = billDisplays;
                 dgvProductList.DataSource = bsBillingList;
-                //dgvProductList.Update();
-                //dgvProductList.Refresh();
-                //dgvProductList.Rows.Add(billDisplays);
                 txtBarcode.Text = "";
                 BillCalculation();
             }
@@ -84,6 +125,7 @@ namespace Winforms
                 //this.Hide();
                 ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text, true);
                 productRegistrationForm.ShowDialog();
+                txtBarcode.Text = "";
                 NewProduct = true;
             }            
         }
@@ -105,9 +147,10 @@ namespace Winforms
             subTotal = billAmount - GST;
             txtTotalAmount.Text = totalAmount.ToString();
             txtSavings.Text = savings.ToString();
-            txtSubTotal.Text = subTotal.ToString();
-            txtGST.Text = GST.ToString();
+            //txtSubTotal.Text = subTotal.ToString();
+            //txtGST.Text = GST.ToString();
             txtBillAmount.Text = billAmount.ToString();
+            txtNoOfProducts.Text = billDisplays.Count.ToString();
         }
 
         private void TxtBarcode_KeyDown(object sender, KeyEventArgs e)
@@ -122,17 +165,143 @@ namespace Winforms
                 }
             }
         }
-
-        private void DgvProductList_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            billDisplays[e.RowIndex].SubTotal = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString())* billDisplays[e.RowIndex].SellingPrice;
-            BillCalculation();
-        }
-
         private void BtnPrintReciept_Click(object sender, EventArgs e)
         {
             Print();
+            UpdatePurchase();
         }
+
+        private void UpdatePurchase()
+        {
+            DailyUpdates();
+            //MontlyUpdates();
+        }
+
+        private void MontlyUpdates()
+        {
+            foreach (var billInventry in billInventries)
+            {
+                if (string.IsNullOrWhiteSpace(billInventry.BarCode))
+                {
+                    if (billingContext.MontlyTable.Where(x => x.Date.ToShortDateString() == DateTime.Today.ToShortDateString() && x.ProductName == billInventry.ProductName).Any())
+                    {
+                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                        row.Quantity = row.Quantity + billInventry.Quantity;
+                        billingContext.SaveChanges();
+                    }
+                    else
+                    {
+                        MontlyTable row = CreateMonthlyTableRow(billInventry);
+                        billingContext.MontlyTable.Add(row);
+                    }
+                }
+                else
+                {
+                    if (billingContext.MontlyTable.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
+                    {
+                        var row = billingContext.MontlyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                        row.Quantity = row.Quantity + billInventry.Quantity;
+                        billingContext.SaveChanges();
+                    }
+                    else
+                    {
+                        MontlyTable row = CreateMonthlyTableRow(billInventry);
+                        billingContext.MontlyTable.Add(row);
+                    }
+                }
+            }
+            billingContext.SaveChanges();
+        }
+
+        private MontlyTable CreateMonthlyTableRow(BillInventry billInventry)
+        {
+            MontlyTable row = new();
+            row.Date = DateTime.Now;
+            if (!string.IsNullOrWhiteSpace(billInventry.BarCode))
+                row.BarCode = billInventry.BarCode;
+            if (!string.IsNullOrWhiteSpace(billInventry.ProductName))
+                row.ProductName = billInventry.ProductName;
+            if (!string.IsNullOrWhiteSpace(billInventry.BrandName))
+                row.BrandName = billInventry.BrandName;
+            if (!string.IsNullOrWhiteSpace(billInventry.Categories))
+                row.Categories = billInventry.Categories;
+            if (!string.IsNullOrWhiteSpace(billInventry.Vendor))
+                row.Vendor = billInventry.Vendor;
+            row.ShelfNo = billInventry.ShelfNo;
+            row.MRP = billInventry.MRP;
+            row.PurchasePrice = billInventry.PurchasePrice;
+            row.SellingPrice = billInventry.SellingPrice;
+            row.BatchNo = billInventry.BatchNo;
+            row.Quantity = billInventry.Quantity;
+            if (!string.IsNullOrWhiteSpace(billInventry.HSNCode))
+                row.HSNCode = billInventry.HSNCode;
+            row.Discount = billInventry.Discount;
+            row.GST = billInventry.GST;
+            return row;
+        }
+
+        private void DailyUpdates()
+        {
+            foreach (var billInventry in billInventries)
+            {
+                if (string.IsNullOrWhiteSpace(billInventry.BarCode))
+                {
+                    if (billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).Any())
+                    {
+                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                        row.Quantity = row.Quantity + billInventry.Quantity;
+                        billingContext.SaveChanges();
+                    }
+                    else
+                    {
+                        DailyTable row = CreateDailyTableRow(billInventry);
+                        billingContext.DailyTable.Add(row);
+                    }
+                }
+                else
+                {
+                    if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
+                    {
+                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                        row.Quantity = row.Quantity + billInventry.Quantity;
+                        billingContext.SaveChanges();
+                    }
+                    else
+                    {
+                        DailyTable row = CreateDailyTableRow(billInventry);
+                        billingContext.DailyTable.Add(row);
+                    }
+                }
+            }
+            billingContext.SaveChanges();
+        }
+
+        private static DailyTable CreateDailyTableRow(BillInventry billInventry)
+        {
+            DailyTable row = new();
+            if (!string.IsNullOrWhiteSpace(billInventry.BarCode))
+                row.BarCode = billInventry.BarCode;
+            if (!string.IsNullOrWhiteSpace(billInventry.ProductName))
+                row.ProductName = billInventry.ProductName;
+            if (!string.IsNullOrWhiteSpace(billInventry.BrandName))
+                row.BrandName = billInventry.BrandName;
+            if (!string.IsNullOrWhiteSpace(billInventry.Categories))
+                row.Categories = billInventry.Categories;
+            if (!string.IsNullOrWhiteSpace(billInventry.Vendor))
+                row.Vendor = billInventry.Vendor;
+            row.ShelfNo = billInventry.ShelfNo;
+            row.MRP = billInventry.MRP;
+            row.PurchasePrice = billInventry.PurchasePrice;
+            row.SellingPrice = billInventry.SellingPrice;
+            row.BatchNo = billInventry.BatchNo;
+            row.Quantity = billInventry.Quantity;
+            if (!string.IsNullOrWhiteSpace(billInventry.HSNCode))
+                row.HSNCode = billInventry.HSNCode;
+            row.Discount = billInventry.Discount;
+            row.GST = billInventry.GST;
+            return row;
+        }
+
         public void Print()
         {
             var doc = new PrintDocument();
@@ -153,7 +322,7 @@ namespace Winforms
             Rectangle rect = new Rectangle(0, startY + offset, 283, (int)(font.GetHeight() + 2));
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Center;
-            graphics.DrawString("TAX INVOICE", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("Cash Receipts", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             offset = offset + (int)font.GetHeight() + 10;
             startY = startY + offset;
             var image = Image.FromFile("Header.jpg");
@@ -238,14 +407,16 @@ namespace Winforms
             startY = startY + (int)(font.GetHeight() + 5);
             font = new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
+            format.Alignment = StringAlignment.Near;
+            graphics.DrawString("No Of Proucts: " + txtNoOfProducts.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             format.Alignment = StringAlignment.Far;
-            graphics.DrawString("Sub Total: " + txtSubTotal.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("Total Amount: " + txtTotalAmount.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
-            graphics.DrawString("GST: " + txtGST.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("Savings: " + txtSavings.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
-            graphics.DrawString("=".PadRight(50, '=') + txtGST.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("=".PadRight(50, '=') + txtSavings.Text, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
             font = new Font(System.Drawing.FontFamily.GenericSansSerif, 10, System.Drawing.FontStyle.Bold);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
@@ -259,21 +430,22 @@ namespace Winforms
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
             format.Alignment = StringAlignment.Center;
             graphics.DrawString("Thank You", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
-            //StringBuilder sb = new StringBuilder();
-            //sb.AppendLine("-".PadRight(80, '-'));
-            //sb.Append("Sub Total: ".PadLeft(13 + 5 + 6));
-            //sb.AppendLine(string.Format("{0:0.00}", txtSubTotal.Text));
-            //sb.Append("GST: ".PadLeft(13 + 5 + 6));
-            //sb.AppendLine(txtGST.Text);                               
-            //sb.AppendLine("=".PadRight(50, '='));
-            //sb.AppendLine("=".PadRight(50, '='));
-            //sb.AppendLine("Thank You".PadLeft(23));
-            //sb.AppendLine("-".PadRight(50, '-'));
-            //var printText = new PrintText(sb.ToString(), new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular));
-            //startX = 0;
+        }
 
-            //graphics.DrawString(printText.Text, new Font(System.Drawing.FontFamily.GenericSansSerif, 8, System.Drawing.FontStyle.Regular),
-            //                    new SolidBrush(System.Drawing.Color.Black), startX, startY);
+        private void DgvProductList_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int quantity = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            billInventries[e.RowIndex].Quantity = quantity;
+            billDisplays[e.RowIndex].Quantity = quantity;
+            billDisplays[e.RowIndex].SubTotal = quantity * billDisplays[e.RowIndex].SellingPrice;
+            BillCalculation();
+        }
+
+        private void BillingForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            BillingSoftware billingSoftware = new();
+            billingSoftware.ShowDialog();
         }
     }
 }
