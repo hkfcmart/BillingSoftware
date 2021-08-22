@@ -56,6 +56,7 @@ namespace Winforms
             this.dgvProductList = new System.Windows.Forms.DataGridView();
             this.lblNoOfProducts = new System.Windows.Forms.Label();
             this.txtNoOfProducts = new System.Windows.Forms.TextBox();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsBillingList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBHeader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
@@ -287,12 +288,23 @@ namespace Winforms
             this.txtNoOfProducts.Size = new System.Drawing.Size(100, 23);
             this.txtNoOfProducts.TabIndex = 28;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(652, 185);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 29;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
             // BillingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(895, 775);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtNoOfProducts);
             this.Controls.Add(this.lblNoOfProducts);
             this.Controls.Add(this.dgvProductList);
@@ -355,5 +367,6 @@ namespace Winforms
         private System.Windows.Forms.DataGridView dgvProductList;
         private System.Windows.Forms.Label lblNoOfProducts;
         private System.Windows.Forms.TextBox txtNoOfProducts;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

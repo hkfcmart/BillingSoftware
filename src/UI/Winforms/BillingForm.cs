@@ -20,6 +20,12 @@ namespace Winforms
         {
             InitializeComponent();
             dgvProductList.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //dgvProductList.Columns["Index"].ReadOnly = true;
+            //dgvProductList.Columns["ProductName"].ReadOnly = true;
+            //dgvProductList.Columns["HSNCode"].ReadOnly = true;
+            //dgvProductList.Columns["MRP"].ReadOnly = true;
+            //dgvProductList.Columns["SellingPrice"].ReadOnly = true;
+            //dgvProductList.Columns["SubTotal"].ReadOnly = true;
         }
         public bool NewProduct { get; set; }
         readonly BillingContext billingContext = new();
@@ -82,11 +88,12 @@ namespace Winforms
                 billDisplays[index].SubTotal = Math.Round(billDisplays[index].SellingPrice * billDisplays[index].Quantity, 2);
                 //dgvProductList.Rows[index].Cells[5].Value = billDisplays[index].Quantity++;
                 //dgvProductList.Rows[index].Cells[6].Value = billDisplays[index].SubTotal;
+                
                 bsBillingList.DataSource = new();
                 bsBillingList.DataSource = billDisplays;
                 dgvProductList.DataSource = bsBillingList;
                 txtBarcode.Text = "";
-                BillCalculation();
+                 BillCalculation();
             }
             else if (billingContext.BillInventry.Where(x => x.BarCode == barCode).Any())
             {
@@ -125,9 +132,19 @@ namespace Winforms
                 //this.Hide();
                 ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text, true);
                 productRegistrationForm.ShowDialog();
-                txtBarcode.Text = "";
                 NewProduct = true;
-            }            
+            }
+            SetColumnEdtingTOFalse();
+        }
+
+        private void SetColumnEdtingTOFalse()
+        {
+            dgvProductList.Columns["Index"].ReadOnly = true;
+            dgvProductList.Columns["ProductName"].ReadOnly = true;
+            dgvProductList.Columns["HSNCode"].ReadOnly = true;
+            dgvProductList.Columns["MRP"].ReadOnly = true;
+            dgvProductList.Columns["SellingPrice"].ReadOnly = true;
+            dgvProductList.Columns["SubTotal"].ReadOnly = true;
         }
 
         private void BillCalculation()
@@ -162,6 +179,7 @@ namespace Winforms
                 {
                     SearchBarCode();
                     NewProduct = false;
+                    txtBarcode.Text = "";
                 }
             }
         }
@@ -434,11 +452,37 @@ namespace Winforms
 
         private void DgvProductList_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            int quantity = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
-            billInventries[e.RowIndex].Quantity = quantity;
-            billDisplays[e.RowIndex].Quantity = quantity;
-            billDisplays[e.RowIndex].SubTotal = quantity * billDisplays[e.RowIndex].SellingPrice;
-            BillCalculation();
+            try
+            {
+                if(billInventries.Count > e.RowIndex)
+                {
+                    int quantity = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    if(quantity < 100)
+                    {
+                        billInventries[e.RowIndex].Quantity = quantity;
+                        billDisplays[e.RowIndex].Quantity = quantity;
+                        billDisplays[e.RowIndex].SubTotal = quantity * billDisplays[e.RowIndex].SellingPrice;
+                        BillCalculation();
+                    }             
+                    else
+                    {
+                        billDisplays[e.RowIndex].Quantity = billInventries[e.RowIndex].Quantity;
+                        dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = billInventries[e.RowIndex].Quantity;
+                        MessageBox.Show("Cannot Enter More Than 100");
+                    }
+                }                
+                else
+                {
+                    bsBillingList.DataSource = new();
+                    //dgvProductList.DataSource = new();
+                    bsBillingList.DataSource = billDisplays;
+                    dgvProductList.Rows.RemoveAt(e.RowIndex);
+                    dgvProductList.DataSource = bsBillingList;
+                }
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void BillingForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -446,6 +490,11 @@ namespace Winforms
             this.Hide();
             BillingSoftware billingSoftware = new();
             billingSoftware.ShowDialog();
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
