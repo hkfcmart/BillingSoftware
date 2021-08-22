@@ -20,6 +20,7 @@ namespace Winforms
             InitializeComponent();
             txtBarCode.Text = barCode;
             BillingCall = billingCall;
+            txtProductName.Focus();
         }
 
         public bool BillingCall { get; }
@@ -48,11 +49,32 @@ namespace Winforms
             if (!string.IsNullOrWhiteSpace(txtShelfNo.Text))
                 billInventry.ShelfNo = Int16.Parse(txtShelfNo.Text);
             if (!string.IsNullOrWhiteSpace(txtMRP.Text))
-                billInventry.MRP = Int16.Parse(txtMRP.Text);
+            {
+                try
+                {
+                    billInventry.MRP = Int16.Parse(txtMRP.Text);
+                }
+                catch 
+                {
+                    MessageBox.Show("Enter Correct Output");
+                    return;
+                }
+            }                
             if (!string.IsNullOrWhiteSpace(txtPurchasePrice.Text))
                 billInventry.PurchasePrice = double.Parse(txtPurchasePrice.Text);
             if (!string.IsNullOrWhiteSpace(txtSellingPrice.Text))
-                billInventry.SellingPrice = double.Parse(txtSellingPrice.Text);
+            {
+                try
+                {
+                    billInventry.SellingPrice = double.Parse(txtSellingPrice.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Enter Correct Output");
+                    return;
+                }                
+            }
+                
             if (!string.IsNullOrWhiteSpace(txtQuantity.Text))
                 billInventry.Quantity = int.Parse(txtQuantity.Text);
             if (!string.IsNullOrWhiteSpace(txtBatchNo.Text))

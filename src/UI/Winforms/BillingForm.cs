@@ -34,38 +34,9 @@ namespace Winforms
         int itemCount = 1;
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtBarcode.Text))
+            if(string.IsNullOrWhiteSpace(txtBarcode.Text) || txtBarcode.Text.Length < 7)
             {
-                ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text, true);
-                productRegistrationForm.ShowDialog();
-                string productName = productRegistrationForm.ProductName;
-                if (billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == productName).Any())
-                {
-                    DailyTable dailyTable = billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == productName).First();
-                    BillInventry billInventry = new()
-                    {
-                        ProductName = dailyTable.ProductName,
-                        MRP = dailyTable.MRP,
-                        SellingPrice = dailyTable.SellingPrice,
-                        Quantity = 1
-                    };
-                    billInventries.Add(billInventry);
-                    billDisplays.Add(new BillDisplay
-                    {
-                        Index = itemCount++,
-                        HSNCode = billInventry.HSNCode,
-                        ProductName = billInventry.ProductName,
-                        MRP = billInventry.MRP,
-                        SellingPrice = billInventry.SellingPrice,
-                        Quantity = 1,
-                        SubTotal = billInventry.SellingPrice
-                    });
-                    bsBillingList.DataSource = new();
-                    bsBillingList.DataSource = billDisplays;
-                    dgvProductList.DataSource = bsBillingList;
-                    txtBarcode.Text = "";
-                    BillCalculation(); 
-                }
+                MessageBox.Show("Please Enter Valid Barcode");
             }
             else
             {
@@ -139,12 +110,15 @@ namespace Winforms
 
         private void SetColumnEdtingTOFalse()
         {
-            dgvProductList.Columns["Index"].ReadOnly = true;
-            dgvProductList.Columns["ProductName"].ReadOnly = true;
-            dgvProductList.Columns["HSNCode"].ReadOnly = true;
-            dgvProductList.Columns["MRP"].ReadOnly = true;
-            dgvProductList.Columns["SellingPrice"].ReadOnly = true;
-            dgvProductList.Columns["SubTotal"].ReadOnly = true;
+            if (dgvProductList.Columns["index"] != null)
+            {
+                dgvProductList.Columns["Index"].ReadOnly = true;
+                dgvProductList.Columns["ProductName"].ReadOnly = true;
+                dgvProductList.Columns["HSNCode"].ReadOnly = true;
+                dgvProductList.Columns["MRP"].ReadOnly = true;
+                dgvProductList.Columns["SellingPrice"].ReadOnly = true;
+                dgvProductList.Columns["SubTotal"].ReadOnly = true; 
+            }
         }
 
         private void BillCalculation()
@@ -494,7 +468,51 @@ namespace Winforms
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text, true);
+            productRegistrationForm.ShowDialog();
+            string productName = productRegistrationForm.ProductName;
+            if (billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == productName).Any())
+            {
+                DailyTable dailyTable = billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == productName).First();
+                BillInventry billInventry = new()
+                {
+                    ProductName = dailyTable.ProductName,
+                    MRP = dailyTable.MRP,
+                    SellingPrice = dailyTable.SellingPrice,
+                    Quantity = 1
+                };
+                billInventries.Add(billInventry);
+                billDisplays.Add(new BillDisplay
+                {
+                    Index = itemCount++,
+                    HSNCode = billInventry.HSNCode,
+                    ProductName = billInventry.ProductName,
+                    MRP = billInventry.MRP,
+                    SellingPrice = billInventry.SellingPrice,
+                    Quantity = 1,
+                    SubTotal = billInventry.SellingPrice
+                });
+                bsBillingList.DataSource = new();
+                bsBillingList.DataSource = billDisplays;
+                dgvProductList.DataSource = bsBillingList;
+                txtBarcode.Text = "";
+                BillCalculation();
+            }
+        }
 
+        private void DgvProductList_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            //dgvProductList.Remove(e.Row);
+            bsBillingList.Remove(e.Row);
+            for (int i = 0; i < billInventries.Count; i++)
+            {
+                if (!billDisplays.Where(x => x.ProductName == billInventries[i].ProductName).Any())
+                {
+                    billInventries.RemoveAt(i);
+                    i--;
+                }                
+            }
+            BillCalculation();
         }
     }
 }

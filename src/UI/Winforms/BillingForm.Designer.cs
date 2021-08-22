@@ -269,6 +269,7 @@ namespace Winforms
             this.dgvProductList.Size = new System.Drawing.Size(676, 430);
             this.dgvProductList.TabIndex = 26;
             this.dgvProductList.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProductList_CellEndEdit);
+            this.dgvProductList.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvProductList_UserDeletedRow);
             // 
             // lblNoOfProducts
             // 
@@ -290,6 +291,7 @@ namespace Winforms
             // 
             // btnAdd
             // 
+            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnAdd.Location = new System.Drawing.Point(652, 185);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);

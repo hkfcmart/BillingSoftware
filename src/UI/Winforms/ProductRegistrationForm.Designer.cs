@@ -76,6 +76,7 @@ namespace Winforms
             this.txtBarCode.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBarCode.Location = new System.Drawing.Point(194, 40);
             this.txtBarCode.Name = "txtBarCode";
+            this.txtBarCode.ReadOnly = true;
             this.txtBarCode.Size = new System.Drawing.Size(270, 23);
             this.txtBarCode.TabIndex = 1;
             // 
@@ -102,6 +103,7 @@ namespace Winforms
             this.txtBrandName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBrandName.Location = new System.Drawing.Point(194, 98);
             this.txtBrandName.Name = "txtBrandName";
+            this.txtBrandName.ReadOnly = true;
             this.txtBrandName.Size = new System.Drawing.Size(270, 23);
             this.txtBrandName.TabIndex = 5;
             // 
@@ -120,6 +122,7 @@ namespace Winforms
             this.txtCategories.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtCategories.Location = new System.Drawing.Point(194, 127);
             this.txtCategories.Name = "txtCategories";
+            this.txtCategories.ReadOnly = true;
             this.txtCategories.Size = new System.Drawing.Size(270, 23);
             this.txtCategories.TabIndex = 7;
             // 
@@ -138,6 +141,7 @@ namespace Winforms
             this.txtVendor.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtVendor.Location = new System.Drawing.Point(194, 156);
             this.txtVendor.Name = "txtVendor";
+            this.txtVendor.ReadOnly = true;
             this.txtVendor.Size = new System.Drawing.Size(270, 23);
             this.txtVendor.TabIndex = 9;
             // 
@@ -156,6 +160,7 @@ namespace Winforms
             this.txtPurchasePrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtPurchasePrice.Location = new System.Drawing.Point(194, 253);
             this.txtPurchasePrice.Name = "txtPurchasePrice";
+            this.txtPurchasePrice.ReadOnly = true;
             this.txtPurchasePrice.Size = new System.Drawing.Size(270, 23);
             this.txtPurchasePrice.TabIndex = 17;
             // 
@@ -192,6 +197,7 @@ namespace Winforms
             this.txtShelfNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtShelfNo.Location = new System.Drawing.Point(194, 189);
             this.txtShelfNo.Name = "txtShelfNo";
+            this.txtShelfNo.ReadOnly = true;
             this.txtShelfNo.Size = new System.Drawing.Size(270, 23);
             this.txtShelfNo.TabIndex = 21;
             // 
@@ -210,6 +216,7 @@ namespace Winforms
             this.txtBatchNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBatchNo.Location = new System.Drawing.Point(194, 344);
             this.txtBatchNo.Name = "txtBatchNo";
+            this.txtBatchNo.ReadOnly = true;
             this.txtBatchNo.Size = new System.Drawing.Size(270, 23);
             this.txtBatchNo.TabIndex = 23;
             // 
@@ -238,6 +245,7 @@ namespace Winforms
             this.txtGST.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtGST.Location = new System.Drawing.Point(194, 433);
             this.txtGST.Name = "txtGST";
+            this.txtGST.ReadOnly = true;
             this.txtGST.Size = new System.Drawing.Size(270, 23);
             this.txtGST.TabIndex = 23;
             // 
@@ -274,6 +282,7 @@ namespace Winforms
             this.txtQuantity.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtQuantity.Location = new System.Drawing.Point(194, 314);
             this.txtQuantity.Name = "txtQuantity";
+            this.txtQuantity.ReadOnly = true;
             this.txtQuantity.Size = new System.Drawing.Size(270, 23);
             this.txtQuantity.TabIndex = 23;
             // 
@@ -292,6 +301,7 @@ namespace Winforms
             this.txtDiscount.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtDiscount.Location = new System.Drawing.Point(194, 404);
             this.txtDiscount.Name = "txtDiscount";
+            this.txtDiscount.ReadOnly = true;
             this.txtDiscount.Size = new System.Drawing.Size(270, 23);
             this.txtDiscount.TabIndex = 23;
             // 
@@ -310,6 +320,7 @@ namespace Winforms
             this.txtHSNCode.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtHSNCode.Location = new System.Drawing.Point(194, 373);
             this.txtHSNCode.Name = "txtHSNCode";
+            this.txtHSNCode.ReadOnly = true;
             this.txtHSNCode.Size = new System.Drawing.Size(270, 23);
             this.txtHSNCode.TabIndex = 23;
             // 
