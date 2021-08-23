@@ -18,8 +18,8 @@ namespace Winforms
         public Inventry()
         {
             InitializeComponent();
-            SqlInvetry.DataSource = billingContext.BillInventry.ToList();
-            dgvProductList.DataSource = SqlInvetry;
+            //SqlInvetry.DataSource = billingContext.BillInventry.ToList();
+            dgvProductList.DataSource = billingContext.BillInventry.ToList();
         }
 
         private void TxtBarcode_KeyDown(object sender, KeyEventArgs e)
@@ -36,8 +36,8 @@ namespace Winforms
 
             if (billingContext.BillInventry.Where(x => x.BarCode == barCode).Any())
             {
-                SqlInvetry.DataSource = billingContext.BillInventry.Where(x => x.BarCode == barCode).ToList();
-                dgvProductList.DataSource = SqlInvetry;
+                //SqlInvetry.DataSource = billingContext.BillInventry.Where(x => x.BarCode == barCode).ToList();
+                dgvProductList.DataSource = billingContext.BillInventry.Where(x => x.BarCode == barCode).ToList();
             }
             else
             {
@@ -55,8 +55,9 @@ namespace Winforms
         private void Inventry_FormClosed(object sender, FormClosedEventArgs e)
         {
             this.Hide();
+            billingContext.SaveChanges();
             BillingSoftware billingSoftware = new();
-            billingSoftware.ShowDialog();
+            billingSoftware.ShowDialog();            
         }
     }
 }
