@@ -43,9 +43,7 @@ namespace Winforms
             this.txtBarcode = new System.Windows.Forms.TextBox();
             this.lblBarcode = new System.Windows.Forms.Label();
             this.bsBillingList = new System.Windows.Forms.BindingSource(this.components);
-            this.cbxconflictItem = new System.Windows.Forms.ComboBox();
             this.PBHeader = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.txtBillAmount = new System.Windows.Forms.TextBox();
             this.lblBillAmount = new System.Windows.Forms.Label();
             this.txtTotalAmount = new System.Windows.Forms.TextBox();
@@ -57,6 +55,8 @@ namespace Winforms
             this.lblNoOfProducts = new System.Windows.Forms.Label();
             this.txtNoOfProducts = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.cmbPartialSearch = new System.Windows.Forms.ComboBox();
+            this.btnSearchByProductName = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsBillingList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBHeader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
@@ -164,15 +164,6 @@ namespace Winforms
             this.lblBarcode.TabIndex = 9;
             this.lblBarcode.Text = "Barcode";
             // 
-            // cbxconflictItem
-            // 
-            this.cbxconflictItem.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbxconflictItem.FormattingEnabled = true;
-            this.cbxconflictItem.Location = new System.Drawing.Point(99, 215);
-            this.cbxconflictItem.Name = "cbxconflictItem";
-            this.cbxconflictItem.Size = new System.Drawing.Size(676, 23);
-            this.cbxconflictItem.TabIndex = 12;
-            // 
             // PBHeader
             // 
             this.PBHeader.BackgroundImage = global::Winforms.Properties.Resources.Header;
@@ -186,15 +177,10 @@ namespace Winforms
             this.PBHeader.TabIndex = 13;
             this.PBHeader.TabStop = false;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // txtBillAmount
             // 
             this.txtBillAmount.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtBillAmount.Location = new System.Drawing.Point(749, 692);
+            this.txtBillAmount.Location = new System.Drawing.Point(749, 666);
             this.txtBillAmount.Name = "txtBillAmount";
             this.txtBillAmount.Size = new System.Drawing.Size(100, 23);
             this.txtBillAmount.TabIndex = 20;
@@ -203,7 +189,7 @@ namespace Winforms
             // 
             this.lblBillAmount.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblBillAmount.AutoSize = true;
-            this.lblBillAmount.Location = new System.Drawing.Point(652, 694);
+            this.lblBillAmount.Location = new System.Drawing.Point(652, 668);
             this.lblBillAmount.Name = "lblBillAmount";
             this.lblBillAmount.Size = new System.Drawing.Size(70, 15);
             this.lblBillAmount.TabIndex = 19;
@@ -212,7 +198,7 @@ namespace Winforms
             // txtTotalAmount
             // 
             this.txtTotalAmount.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtTotalAmount.Location = new System.Drawing.Point(359, 688);
+            this.txtTotalAmount.Location = new System.Drawing.Point(359, 662);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.Size = new System.Drawing.Size(100, 23);
             this.txtTotalAmount.TabIndex = 22;
@@ -221,7 +207,7 @@ namespace Winforms
             // 
             this.lblTotalAmout.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblTotalAmout.AutoSize = true;
-            this.lblTotalAmout.Location = new System.Drawing.Point(259, 691);
+            this.lblTotalAmout.Location = new System.Drawing.Point(259, 665);
             this.lblTotalAmout.Name = "lblTotalAmout";
             this.lblTotalAmout.Size = new System.Drawing.Size(72, 15);
             this.lblTotalAmout.TabIndex = 21;
@@ -230,7 +216,7 @@ namespace Winforms
             // txtSavings
             // 
             this.txtSavings.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtSavings.Location = new System.Drawing.Point(538, 690);
+            this.txtSavings.Location = new System.Drawing.Point(538, 664);
             this.txtSavings.Name = "txtSavings";
             this.txtSavings.Size = new System.Drawing.Size(100, 23);
             this.txtSavings.TabIndex = 24;
@@ -239,7 +225,7 @@ namespace Winforms
             // 
             this.lblSavings.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblSavings.AutoSize = true;
-            this.lblSavings.Location = new System.Drawing.Point(468, 693);
+            this.lblSavings.Location = new System.Drawing.Point(468, 667);
             this.lblSavings.Name = "lblSavings";
             this.lblSavings.Size = new System.Drawing.Size(47, 15);
             this.lblSavings.TabIndex = 23;
@@ -249,7 +235,7 @@ namespace Winforms
             // 
             this.btnPrintReciept.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnPrintReciept.AutoSize = true;
-            this.btnPrintReciept.Location = new System.Drawing.Point(715, 748);
+            this.btnPrintReciept.Location = new System.Drawing.Point(715, 722);
             this.btnPrintReciept.Name = "btnPrintReciept";
             this.btnPrintReciept.Size = new System.Drawing.Size(84, 25);
             this.btnPrintReciept.TabIndex = 25;
@@ -266,7 +252,7 @@ namespace Winforms
             this.dgvProductList.Location = new System.Drawing.Point(99, 244);
             this.dgvProductList.Name = "dgvProductList";
             this.dgvProductList.RowTemplate.Height = 25;
-            this.dgvProductList.Size = new System.Drawing.Size(676, 430);
+            this.dgvProductList.Size = new System.Drawing.Size(676, 404);
             this.dgvProductList.TabIndex = 26;
             this.dgvProductList.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProductList_CellEndEdit);
             this.dgvProductList.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvProductList_UserDeletedRow);
@@ -275,7 +261,7 @@ namespace Winforms
             // 
             this.lblNoOfProducts.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblNoOfProducts.AutoSize = true;
-            this.lblNoOfProducts.Location = new System.Drawing.Point(33, 691);
+            this.lblNoOfProducts.Location = new System.Drawing.Point(33, 665);
             this.lblNoOfProducts.Name = "lblNoOfProducts";
             this.lblNoOfProducts.Size = new System.Drawing.Size(89, 15);
             this.lblNoOfProducts.TabIndex = 27;
@@ -284,7 +270,7 @@ namespace Winforms
             // txtNoOfProducts
             // 
             this.txtNoOfProducts.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.txtNoOfProducts.Location = new System.Drawing.Point(132, 688);
+            this.txtNoOfProducts.Location = new System.Drawing.Point(132, 662);
             this.txtNoOfProducts.Name = "txtNoOfProducts";
             this.txtNoOfProducts.Size = new System.Drawing.Size(100, 23);
             this.txtNoOfProducts.TabIndex = 28;
@@ -300,12 +286,35 @@ namespace Winforms
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
+            // cmbPartialSearch
+            // 
+            this.cmbPartialSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cmbPartialSearch.FormattingEnabled = true;
+            this.cmbPartialSearch.Location = new System.Drawing.Point(213, 215);
+            this.cmbPartialSearch.Name = "cmbPartialSearch";
+            this.cmbPartialSearch.Size = new System.Drawing.Size(332, 23);
+            this.cmbPartialSearch.TabIndex = 30;
+            this.cmbPartialSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbPartialSearch_KeyPress);
+            // 
+            // btnSearchByProductName
+            // 
+            this.btnSearchByProductName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSearchByProductName.Location = new System.Drawing.Point(578, 215);
+            this.btnSearchByProductName.Name = "btnSearchByProductName";
+            this.btnSearchByProductName.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchByProductName.TabIndex = 31;
+            this.btnSearchByProductName.Text = "Search";
+            this.btnSearchByProductName.UseVisualStyleBackColor = true;
+            this.btnSearchByProductName.Click += new System.EventHandler(this.btnSearchByProductName_Click);
+            // 
             // BillingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
-            this.ClientSize = new System.Drawing.Size(895, 775);
+            this.ClientSize = new System.Drawing.Size(895, 749);
+            this.Controls.Add(this.btnSearchByProductName);
+            this.Controls.Add(this.cmbPartialSearch);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtNoOfProducts);
             this.Controls.Add(this.lblNoOfProducts);
@@ -318,7 +327,6 @@ namespace Winforms
             this.Controls.Add(this.txtBillAmount);
             this.Controls.Add(this.lblBillAmount);
             this.Controls.Add(this.PBHeader);
-            this.Controls.Add(this.cbxconflictItem);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtBarcode);
             this.Controls.Add(this.lblBarcode);
@@ -355,9 +363,7 @@ namespace Winforms
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox txtBarcode;
         private System.Windows.Forms.Label lblBarcode;
-        private System.Windows.Forms.ComboBox cbxconflictItem;
         private System.Windows.Forms.PictureBox PBHeader;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.TextBox txtBillAmount;
         private System.Windows.Forms.Label lblBillAmount;
         private System.Windows.Forms.TextBox txtTotalAmount;
@@ -370,5 +376,7 @@ namespace Winforms
         private System.Windows.Forms.Label lblNoOfProducts;
         private System.Windows.Forms.TextBox txtNoOfProducts;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.ComboBox cmbPartialSearch;
+        private System.Windows.Forms.Button btnSearchByProductName;
     }
 }

@@ -71,9 +71,9 @@ namespace Winforms
                 List<BillInventry> inventries = billingContext.BillInventry.Where(x => x.BarCode == barCode).ToList();
                 if (inventries.Count() > 1)
                 {
-                    cbxconflictItem.Items.Clear();
+                    cmbPartialSearch.Items.Clear();
                     foreach (BillInventry inventry in inventries)
-                        cbxconflictItem.Items.Add(inventry);
+                        cmbPartialSearch.Items.Add(inventry);
                 }
                 else
                 {
@@ -513,6 +513,18 @@ namespace Winforms
                 }                
             }
             BillCalculation();
+        }
+
+        private void btnSearchByProductName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbPartialSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            List<DailyTable> dailyTables = new List<DailyTable> { new DailyTable { ProductName = "sugar 1kg" }, new DailyTable { ProductName = "sugar 2kg" }, new DailyTable { ProductName = "sugar 5kg" } };
+            cmbPartialSearch.Items.Clear();
+
         }
     }
 }
