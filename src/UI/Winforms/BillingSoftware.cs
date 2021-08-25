@@ -37,5 +37,12 @@ namespace Winforms
             BillingForm billingForm = new();
             billingForm.ShowDialog();
         }
+
+        private void btnDailySalesReport_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            DailySalesForm dailySalesForm = new();
+            dailySalesForm.ShowDialog();
+        }
     }
 }
