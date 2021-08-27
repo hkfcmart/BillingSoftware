@@ -64,7 +64,7 @@ namespace Winforms
                 bsBillingList.DataSource = billDisplays;
                 dgvProductList.DataSource = bsBillingList;
                 txtBarcode.Text = "";
-                 BillCalculation();
+                BillCalculation();
             }
             else if (billingContext.BillInventry.Where(x => x.BarCode == barCode).Any())
             {
@@ -333,7 +333,7 @@ namespace Winforms
             graphics.DrawString("Data: " + DateTime.Now, font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(0, startY, 283, (int)(font.GetHeight() + 5));
-            graphics.DrawString("GST No: 29AANFH919FIZR", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("GST No: 29AANFH9192F1ZR", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
             graphics.DrawString("Customer Name: " + txtCustomerName.Text , font, new SolidBrush(System.Drawing.Color.Black), rect, format);
