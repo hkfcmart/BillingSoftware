@@ -289,12 +289,14 @@ namespace Winforms
             // cmbPartialSearch
             // 
             this.cmbPartialSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cmbPartialSearch.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbPartialSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cmbPartialSearch.FormattingEnabled = true;
             this.cmbPartialSearch.Location = new System.Drawing.Point(213, 215);
             this.cmbPartialSearch.Name = "cmbPartialSearch";
             this.cmbPartialSearch.Size = new System.Drawing.Size(332, 23);
             this.cmbPartialSearch.TabIndex = 30;
-            this.cmbPartialSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmbPartialSearch_KeyPress);
+            this.cmbPartialSearch.SelectedIndexChanged += new System.EventHandler(this.CmbPartialSearch_SelectedIndexChanged);
             // 
             // btnSearchByProductName
             // 

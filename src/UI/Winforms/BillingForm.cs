@@ -20,15 +20,13 @@ namespace Winforms
         {
             InitializeComponent();
             dgvProductList.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            //dgvProductList.Columns["Index"].ReadOnly = true;
-            //dgvProductList.Columns["ProductName"].ReadOnly = true;
-            //dgvProductList.Columns["HSNCode"].ReadOnly = true;
-            //dgvProductList.Columns["MRP"].ReadOnly = true;
-            //dgvProductList.Columns["SellingPrice"].ReadOnly = true;
-            //dgvProductList.Columns["SubTotal"].ReadOnly = true;
+            productList = billingContext.BillInventry.ToList();
+            foreach (BillInventry product in productList)
+                cmbPartialSearch.Items.Add(product.ProductName + " - " + product.BarCode);
         }
+        List<BillInventry> productList = new();
         public bool NewProduct { get; set; }
-        readonly BillingContext billingContext = new();
+        BillingContext billingContext = new();
         List<BillInventry> billInventries = new();
         List<BillDisplay> billDisplays = new();
         int itemCount = 1;
@@ -57,9 +55,6 @@ namespace Winforms
                 billDisplays[index].Quantity++;
                 billInventries[index].Quantity++;
                 billDisplays[index].SubTotal = Math.Round(billDisplays[index].SellingPrice * billDisplays[index].Quantity, 2);
-                //dgvProductList.Rows[index].Cells[5].Value = billDisplays[index].Quantity++;
-                //dgvProductList.Rows[index].Cells[6].Value = billDisplays[index].SubTotal;
-                
                 bsBillingList.DataSource = new();
                 bsBillingList.DataSource = billDisplays;
                 dgvProductList.DataSource = bsBillingList;
@@ -166,7 +161,46 @@ namespace Winforms
         private void UpdatePurchase()
         {
             DailyUpdates();
+            UpdateInventry();
             //MontlyUpdates();
+        }
+
+        private void UpdateInventry()
+        {
+            foreach (var item in billInventries)
+            {
+                if (string.IsNullOrWhiteSpace(item.BarCode))
+                {
+                    //if (billingContext.DailyTable.Where(x => x.ProductName == item.ProductName).Any())
+                    //{
+                    //    var row = billingContext.DailyTable.Where(x => x.ProductName == item.ProductName).First();
+                    //    row.Quantity = row.Quantity - item.Quantity;
+                    //    billingContext.SaveChanges();
+                    //}
+                    //else
+                    //{
+                    //    DailyTable row = CreateDailyTableRow(item);
+                    //    billingContext.DailyTable.Add(row);
+                    //}
+                }
+                else
+                {
+                    if (billingContext.BillInventry.Where(x => x.BarCode == item.BarCode && x.ProductName == item.ProductName).Any())
+                    {
+                        List<BillInventry> listvalues = billingContext.BillInventry.ToList();
+                        //var row = listvalues.Where(x => x.ProductName == billInventry.ProductName).First();
+                        BillInventry billInventry = billingContext.BillInventry.Where(x => x.BarCode == item.BarCode).First();
+                        uint quantity = item.Quantity;
+                        billInventry.Quantity -= quantity;
+                        billingContext.SaveChanges();
+                    }
+                    //else
+                    //{
+                    //    DailyTable row = CreateDailyTableRow(billInventry);
+                    //    billingContext.DailyTable.Add(row);
+                    //}
+                }
+            }
         }
 
         private void MontlyUpdates()
@@ -430,7 +464,7 @@ namespace Winforms
             {
                 if(billInventries.Count > e.RowIndex)
                 {
-                    int quantity = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    uint quantity = uint.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                     if(quantity < 100)
                     {
                         billInventries[e.RowIndex].Quantity = quantity;
@@ -520,11 +554,43 @@ namespace Winforms
 
         }
 
-        private void cmbPartialSearch_KeyPress(object sender, KeyPressEventArgs e)
+        private void CmbPartialSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<DailyTable> dailyTables = new List<DailyTable> { new DailyTable { ProductName = "sugar 1kg" }, new DailyTable { ProductName = "sugar 2kg" }, new DailyTable { ProductName = "sugar 5kg" } };
-            cmbPartialSearch.Items.Clear();
-
+            BillInventry billInventry = productList.Where(x => ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString().EndsWith(x.BarCode)).ToList().First();
+            //billInventry.Quantity = 1;
+            billInventries.Add(new BillInventry
+            {
+                Quantity = 1,
+                BarCode = billInventry.BarCode,
+                BatchNo = billInventry.BatchNo,
+                BrandName = billInventry.BrandName,
+                Categories = billInventry.Categories,
+                Discount = billInventry.Discount,
+                GST = billInventry.Discount,
+                HSNCode = billInventry.HSNCode,
+                Id = billInventry.Id,
+                MRP = billInventry.MRP,
+                ProductName = billInventry.ProductName,
+                PurchasePrice = billInventry.PurchasePrice,
+                SellingPrice = billInventry.SellingPrice,
+                ShelfNo = billInventry.ShelfNo,
+                Vendor = billInventry.Vendor
+            }); 
+            billDisplays.Add(new BillDisplay
+            {
+                Index = itemCount++,
+                HSNCode = billInventry.HSNCode,
+                ProductName = billInventry.ProductName,
+                MRP = billInventry.MRP,
+                SellingPrice = billInventry.SellingPrice,
+                Quantity = 1,
+                SubTotal = billInventry.SellingPrice
+            });
+            bsBillingList.DataSource = new();
+            bsBillingList.DataSource = billDisplays;
+            dgvProductList.DataSource = bsBillingList;
+            BillCalculation();
+            cmbPartialSearch.Text = "";
         }
     }
 }

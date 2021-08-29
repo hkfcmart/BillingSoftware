@@ -14,7 +14,7 @@ namespace Winforms
         public string HSNCode { get; set; }
         public double MRP { get; set; }
         public double SellingPrice { get; set; }
-        public int Quantity { get; set; }
+        public uint Quantity { get; set; }
         public double SubTotal { get; set; }
     }
 }

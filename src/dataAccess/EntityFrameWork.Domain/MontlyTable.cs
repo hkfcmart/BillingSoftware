@@ -23,7 +23,7 @@ namespace EntityFrameWork.Domain
         public double PurchasePrice { get; set; }
         public double SellingPrice { get; set; }
         public double Discount { get; set; }
-        public int Quantity { get; set; }
+        public uint Quantity { get; set; }
         public int BatchNo { get; set; }
         public DateTime Date { get; set; }
     }

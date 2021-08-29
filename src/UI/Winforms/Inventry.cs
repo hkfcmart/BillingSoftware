@@ -1,4 +1,5 @@
 ﻿using EntityFrameWork;
+using EntityFrameWork.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace Winforms
 {
     public partial class Inventry : Form
     {
-        readonly BillingContext billingContext = new();
+        BillingContext billingContext = new();
         public Inventry()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace Winforms
 
         private void SearchBarCode()
         {
-            string barCode = txtBarcode.Text;
+            string barCode = txtBarcode.Text.Trim();
 
             if (billingContext.BillInventry.Where(x => x.BarCode == barCode).Any())
             {
@@ -58,6 +59,18 @@ namespace Winforms
             billingContext.SaveChanges();
             BillingSoftware billingSoftware = new();
             billingSoftware.ShowDialog();            
+        }
+
+        private void TxtProductName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            string searchTex = "";
+            if (e.KeyChar == '\b')
+                searchTex = txtProductName.Text.Substring(0, txtProductName.Text.Length - 1);
+            else
+                searchTex = txtProductName.Text + e.KeyChar;
+            List<BillInventry> bills = billingContext.BillInventry.Where(x => x.ProductName.StartsWith(searchTex)).ToList();
+            BillInventry billInventry = billingContext.BillInventry.Where(x => x.BarCode == "00001168").First();
+            dgvProductList.DataSource = bills;
         }
     }
 }
