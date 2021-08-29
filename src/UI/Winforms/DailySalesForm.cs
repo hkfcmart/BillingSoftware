@@ -36,5 +36,12 @@ namespace Winforms
             txtSaving.Text = savings.ToString();
             txtIncome.Text = Income.ToString();
         }
+
+        private void DailySalesForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            BillingSoftware billingSoftware = new();
+            billingSoftware.ShowDialog();
+        }
     }
 }

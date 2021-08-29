@@ -314,7 +314,7 @@ namespace Winforms
             Rectangle rect = new Rectangle(0, startY + offset, 283, (int)(font.GetHeight() + 2));
             StringFormat format = new StringFormat();
             format.Alignment = StringAlignment.Center;
-            graphics.DrawString("Cash Receipts", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("Bill Estimate", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             offset = offset + (int)font.GetHeight() + 10;
             startY = startY + offset;
             var image = Image.FromFile("Header.jpg");

@@ -59,6 +59,7 @@ namespace Winforms
             // 
             // dgvDaliySalesData
             // 
+            this.dgvDaliySalesData.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.dgvDaliySalesData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDaliySalesData.Location = new System.Drawing.Point(12, 44);
             this.dgvDaliySalesData.Name = "dgvDaliySalesData";
@@ -77,6 +78,7 @@ namespace Winforms
             // 
             // txtMRP
             // 
+            this.txtMRP.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtMRP.Location = new System.Drawing.Point(47, 411);
             this.txtMRP.Name = "txtMRP";
             this.txtMRP.Size = new System.Drawing.Size(100, 23);
@@ -84,6 +86,7 @@ namespace Winforms
             // 
             // lblPurchased
             // 
+            this.lblPurchased.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblPurchased.AutoSize = true;
             this.lblPurchased.Location = new System.Drawing.Point(159, 415);
             this.lblPurchased.Name = "lblPurchased";
@@ -93,6 +96,7 @@ namespace Winforms
             // 
             // txtPurchased
             // 
+            this.txtPurchased.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtPurchased.Location = new System.Drawing.Point(221, 411);
             this.txtPurchased.Name = "txtPurchased";
             this.txtPurchased.Size = new System.Drawing.Size(100, 23);
@@ -100,6 +104,7 @@ namespace Winforms
             // 
             // txtSales
             // 
+            this.txtSales.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtSales.Location = new System.Drawing.Point(367, 411);
             this.txtSales.Name = "txtSales";
             this.txtSales.Size = new System.Drawing.Size(100, 23);
@@ -107,6 +112,7 @@ namespace Winforms
             // 
             // lblSales
             // 
+            this.lblSales.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblSales.AutoSize = true;
             this.lblSales.Location = new System.Drawing.Point(335, 415);
             this.lblSales.Name = "lblSales";
@@ -116,6 +122,7 @@ namespace Winforms
             // 
             // txtSaving
             // 
+            this.txtSaving.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtSaving.Location = new System.Drawing.Point(517, 411);
             this.txtSaving.Name = "txtSaving";
             this.txtSaving.Size = new System.Drawing.Size(100, 23);
@@ -123,6 +130,7 @@ namespace Winforms
             // 
             // lblSaving
             // 
+            this.lblSaving.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblSaving.AutoSize = true;
             this.lblSaving.Location = new System.Drawing.Point(475, 415);
             this.lblSaving.Name = "lblSaving";
@@ -132,6 +140,7 @@ namespace Winforms
             // 
             // txtIncome
             // 
+            this.txtIncome.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtIncome.Location = new System.Drawing.Point(682, 412);
             this.txtIncome.Name = "txtIncome";
             this.txtIncome.Size = new System.Drawing.Size(100, 23);
@@ -139,6 +148,7 @@ namespace Winforms
             // 
             // lblIncome
             // 
+            this.lblIncome.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblIncome.AutoSize = true;
             this.lblIncome.Location = new System.Drawing.Point(633, 415);
             this.lblIncome.Name = "lblIncome";
@@ -165,6 +175,7 @@ namespace Winforms
             this.Controls.Add(this.lblDailySalesData);
             this.Name = "DailySalesForm";
             this.Text = "DailySalesForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DailySalesForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDaliySalesData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DailySalesData)).EndInit();
             this.ResumeLayout(false);
