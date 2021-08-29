@@ -558,34 +558,51 @@ namespace Winforms
         {
             BillInventry billInventry = productList.Where(x => ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString().EndsWith(x.BarCode)).ToList().First();
             //billInventry.Quantity = 1;
-            billInventries.Add(new BillInventry
+            if (billInventries.Count > 0 && billInventries.Where(x => x.BarCode == billInventry.BarCode).Any())
             {
-                Quantity = 1,
-                BarCode = billInventry.BarCode,
-                BatchNo = billInventry.BatchNo,
-                BrandName = billInventry.BrandName,
-                Categories = billInventry.Categories,
-                Discount = billInventry.Discount,
-                GST = billInventry.Discount,
-                HSNCode = billInventry.HSNCode,
-                Id = billInventry.Id,
-                MRP = billInventry.MRP,
-                ProductName = billInventry.ProductName,
-                PurchasePrice = billInventry.PurchasePrice,
-                SellingPrice = billInventry.SellingPrice,
-                ShelfNo = billInventry.ShelfNo,
-                Vendor = billInventry.Vendor
-            }); 
-            billDisplays.Add(new BillDisplay
+                //billInventries.Where(x => x.BarCode == billInventry.BarCode).First().Quantity++;
+                for(int i=0; i<billInventries.Count; i++)
+                {
+                    if(billInventries[i].BarCode == billInventry.BarCode)
+                    {
+                        billInventries[i].Quantity++;
+                        billDisplays[i].Quantity++;
+                        billDisplays[i].SubTotal = Math.Round(billDisplays[i].SellingPrice * billDisplays[i].Quantity, 2);
+                    }
+                }
+            }
+            else
             {
-                Index = itemCount++,
-                HSNCode = billInventry.HSNCode,
-                ProductName = billInventry.ProductName,
-                MRP = billInventry.MRP,
-                SellingPrice = billInventry.SellingPrice,
-                Quantity = 1,
-                SubTotal = billInventry.SellingPrice
-            });
+                billInventries.Add(new BillInventry
+                {
+                    Quantity = 1,
+                    BarCode = billInventry.BarCode,
+                    BatchNo = billInventry.BatchNo,
+                    BrandName = billInventry.BrandName,
+                    Categories = billInventry.Categories,
+                    Discount = billInventry.Discount,
+                    GST = billInventry.Discount,
+                    HSNCode = billInventry.HSNCode,
+                    Id = billInventry.Id,
+                    MRP = billInventry.MRP,
+                    ProductName = billInventry.ProductName,
+                    PurchasePrice = billInventry.PurchasePrice,
+                    SellingPrice = billInventry.SellingPrice,
+                    ShelfNo = billInventry.ShelfNo,
+                    Vendor = billInventry.Vendor
+                });
+                billDisplays.Add(new BillDisplay
+                {
+                    Index = itemCount++,
+                    HSNCode = billInventry.HSNCode,
+                    ProductName = billInventry.ProductName,
+                    MRP = billInventry.MRP,
+                    SellingPrice = billInventry.SellingPrice,
+                    Quantity = 1,
+                    SubTotal = billInventry.SellingPrice
+                });
+            }
+            
             bsBillingList.DataSource = new();
             bsBillingList.DataSource = billDisplays;
             dgvProductList.DataSource = bsBillingList;

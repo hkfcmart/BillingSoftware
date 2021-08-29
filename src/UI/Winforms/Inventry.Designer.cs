@@ -37,6 +37,10 @@ namespace Winforms
             this.SqlInvetry = new System.Windows.Forms.BindingSource(this.components);
             this.txtProductName = new System.Windows.Forms.TextBox();
             this.lblProductName = new System.Windows.Forms.Label();
+            this.lblTotalStockCost = new System.Windows.Forms.Label();
+            this.txtTotalStockCost = new System.Windows.Forms.TextBox();
+            this.lblTotalSellingCost = new System.Windows.Forms.Label();
+            this.txtTotalSellingCost = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SqlInvetry)).BeginInit();
             this.SuspendLayout();
@@ -51,14 +55,14 @@ namespace Winforms
             this.dgvProductList.Location = new System.Drawing.Point(27, 70);
             this.dgvProductList.Name = "dgvProductList";
             this.dgvProductList.RowTemplate.Height = 25;
-            this.dgvProductList.Size = new System.Drawing.Size(518, 337);
+            this.dgvProductList.Size = new System.Drawing.Size(506, 334);
             this.dgvProductList.TabIndex = 0;
             // 
             // lblBarcode
             // 
             this.lblBarcode.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblBarcode.AutoSize = true;
-            this.lblBarcode.Location = new System.Drawing.Point(66, 19);
+            this.lblBarcode.Location = new System.Drawing.Point(60, 19);
             this.lblBarcode.Name = "lblBarcode";
             this.lblBarcode.Size = new System.Drawing.Size(50, 15);
             this.lblBarcode.TabIndex = 1;
@@ -67,7 +71,7 @@ namespace Winforms
             // txtBarcode
             // 
             this.txtBarcode.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtBarcode.Location = new System.Drawing.Point(163, 18);
+            this.txtBarcode.Location = new System.Drawing.Point(157, 18);
             this.txtBarcode.Name = "txtBarcode";
             this.txtBarcode.Size = new System.Drawing.Size(238, 23);
             this.txtBarcode.TabIndex = 2;
@@ -77,7 +81,7 @@ namespace Winforms
             // btnSearch
             // 
             this.btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnSearch.Location = new System.Drawing.Point(422, 31);
+            this.btnSearch.Location = new System.Drawing.Point(416, 31);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 3;
@@ -88,7 +92,7 @@ namespace Winforms
             // txtProductName
             // 
             this.txtProductName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtProductName.Location = new System.Drawing.Point(163, 44);
+            this.txtProductName.Location = new System.Drawing.Point(157, 44);
             this.txtProductName.Name = "txtProductName";
             this.txtProductName.Size = new System.Drawing.Size(238, 23);
             this.txtProductName.TabIndex = 4;
@@ -98,17 +102,57 @@ namespace Winforms
             // 
             this.lblProductName.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblProductName.AutoSize = true;
-            this.lblProductName.Location = new System.Drawing.Point(65, 47);
+            this.lblProductName.Location = new System.Drawing.Point(59, 47);
             this.lblProductName.Name = "lblProductName";
             this.lblProductName.Size = new System.Drawing.Size(84, 15);
             this.lblProductName.TabIndex = 5;
             this.lblProductName.Text = "Product Name";
             // 
+            // lblTotalStockCost
+            // 
+            this.lblTotalStockCost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblTotalStockCost.AutoSize = true;
+            this.lblTotalStockCost.Location = new System.Drawing.Point(71, 419);
+            this.lblTotalStockCost.Name = "lblTotalStockCost";
+            this.lblTotalStockCost.Size = new System.Drawing.Size(91, 15);
+            this.lblTotalStockCost.TabIndex = 6;
+            this.lblTotalStockCost.Text = "Total Stock Cost";
+            // 
+            // txtTotalStockCost
+            // 
+            this.txtTotalStockCost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtTotalStockCost.Location = new System.Drawing.Point(168, 416);
+            this.txtTotalStockCost.Name = "txtTotalStockCost";
+            this.txtTotalStockCost.Size = new System.Drawing.Size(100, 23);
+            this.txtTotalStockCost.TabIndex = 7;
+            // 
+            // lblTotalSellingCost
+            // 
+            this.lblTotalSellingCost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblTotalSellingCost.AutoSize = true;
+            this.lblTotalSellingCost.Location = new System.Drawing.Point(304, 419);
+            this.lblTotalSellingCost.Name = "lblTotalSellingCost";
+            this.lblTotalSellingCost.Size = new System.Drawing.Size(97, 15);
+            this.lblTotalSellingCost.TabIndex = 8;
+            this.lblTotalSellingCost.Text = "Total Selling Cost";
+            // 
+            // txtTotalSellingCost
+            // 
+            this.txtTotalSellingCost.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.txtTotalSellingCost.Location = new System.Drawing.Point(416, 416);
+            this.txtTotalSellingCost.Name = "txtTotalSellingCost";
+            this.txtTotalSellingCost.Size = new System.Drawing.Size(100, 23);
+            this.txtTotalSellingCost.TabIndex = 9;
+            // 
             // Inventry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 409);
+            this.ClientSize = new System.Drawing.Size(559, 449);
+            this.Controls.Add(this.txtTotalSellingCost);
+            this.Controls.Add(this.lblTotalSellingCost);
+            this.Controls.Add(this.txtTotalStockCost);
+            this.Controls.Add(this.lblTotalStockCost);
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.txtProductName);
             this.Controls.Add(this.btnSearch);
@@ -134,5 +178,9 @@ namespace Winforms
         public System.Windows.Forms.BindingSource SqlInvetry;
         private System.Windows.Forms.TextBox txtProductName;
         private System.Windows.Forms.Label lblProductName;
+        private System.Windows.Forms.Label lblTotalStockCost;
+        private System.Windows.Forms.TextBox txtTotalStockCost;
+        private System.Windows.Forms.Label lblTotalSellingCost;
+        private System.Windows.Forms.TextBox txtTotalSellingCost;
     }
 }

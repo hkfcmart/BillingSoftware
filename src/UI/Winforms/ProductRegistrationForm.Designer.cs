@@ -160,7 +160,6 @@ namespace Winforms
             this.txtPurchasePrice.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtPurchasePrice.Location = new System.Drawing.Point(194, 253);
             this.txtPurchasePrice.Name = "txtPurchasePrice";
-            this.txtPurchasePrice.ReadOnly = true;
             this.txtPurchasePrice.Size = new System.Drawing.Size(270, 23);
             this.txtPurchasePrice.TabIndex = 17;
             // 

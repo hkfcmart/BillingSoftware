@@ -15,12 +15,22 @@ namespace Winforms
 {
     public partial class Inventry : Form
     {
+       
         BillingContext billingContext = new();
         public Inventry()
         {
+            double stockAmount = 0;
+            double totalSellingAmount = 0;
             InitializeComponent();
             //SqlInvetry.DataSource = billingContext.BillInventry.ToList();
             dgvProductList.DataSource = billingContext.BillInventry.ToList();
+            foreach (BillInventry billInventry in billingContext.BillInventry.ToList())
+            {
+                totalSellingAmount += billInventry.SellingPrice * billInventry.Quantity;
+                stockAmount += billInventry.PurchasePrice * billInventry.Quantity;
+            }
+            txtTotalStockCost.Text = stockAmount.ToString("N2");
+            txtTotalSellingCost.Text = totalSellingAmount.ToString("N2");
         }
 
         private void TxtBarcode_KeyDown(object sender, KeyEventArgs e)
@@ -65,12 +75,15 @@ namespace Winforms
         {
             string searchTex = "";
             if (e.KeyChar == '\b')
-                searchTex = txtProductName.Text.Substring(0, txtProductName.Text.Length - 1);
+            {
+                if(!String.IsNullOrEmpty(txtProductName.Text))
+                    searchTex = txtProductName.Text.Substring(0, txtProductName.Text.Length - 1);
+            }                
             else
                 searchTex = txtProductName.Text + e.KeyChar;
             List<BillInventry> bills = billingContext.BillInventry.Where(x => x.ProductName.StartsWith(searchTex)).ToList();
-            BillInventry billInventry = billingContext.BillInventry.Where(x => x.BarCode == "00001168").First();
             dgvProductList.DataSource = bills;
+            billingContext.SaveChanges();
         }
     }
 }

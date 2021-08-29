@@ -18,7 +18,7 @@ namespace Winforms
         public ProductRegistrationForm(string barCode = "", bool billingCall = false)
         {
             InitializeComponent();
-            txtBarCode.Text = barCode;
+            txtBarCode.Text = barCode.Trim();
             BillingCall = billingCall;
             txtProductName.Focus();
         }
@@ -30,8 +30,8 @@ namespace Winforms
         {
             ProductName = txtProductName.Text;
             BillInventry billInventry = new();
-            if(!string.IsNullOrWhiteSpace(txtBarCode.Text))
-                billInventry.BarCode = txtBarCode.Text;
+            if (!string.IsNullOrWhiteSpace(txtBarCode.Text.Trim()))
+                billInventry.BarCode = txtBarCode.Text.Trim();
             if (!string.IsNullOrWhiteSpace(txtProductName.Text))
                 billInventry.ProductName = txtProductName.Text;
             if (!string.IsNullOrWhiteSpace(txtBrandName.Text))
@@ -52,16 +52,28 @@ namespace Winforms
             {
                 try
                 {
-                    billInventry.MRP = Int16.Parse(txtMRP.Text);
+                    billInventry.MRP = double.Parse(txtMRP.Text);
                 }
-                catch 
+                catch
                 {
                     MessageBox.Show("Enter Correct Output");
                     return;
                 }
-            }                
+            }
             if (!string.IsNullOrWhiteSpace(txtPurchasePrice.Text))
-                billInventry.PurchasePrice = double.Parse(txtPurchasePrice.Text);
+            {
+                try
+                {
+                    billInventry.PurchasePrice = double.Parse(txtPurchasePrice.Text);
+                }
+                catch
+                {
+                    MessageBox.Show("Enter Correct Output");
+                    return;
+                }
+
+            }
+
             if (!string.IsNullOrWhiteSpace(txtSellingPrice.Text))
             {
                 try
