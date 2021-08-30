@@ -15,15 +15,26 @@ namespace Winforms
 {
     public partial class Inventry : Form
     {
-       
+        double stockAmount = 0;
+        double totalSellingAmount = 0;
         BillingContext billingContext = new();
         public Inventry()
         {
-            double stockAmount = 0;
-            double totalSellingAmount = 0;
             InitializeComponent();
-            //SqlInvetry.DataSource = billingContext.BillInventry.ToList();
             dgvProductList.DataSource = billingContext.BillInventry.ToList();
+            UpdateInventryAmounts();
+            SetColumnEdtingTOFalse();
+        }
+        private void SetColumnEdtingTOFalse()
+        {
+            if (dgvProductList.Columns["Id"] != null)
+            {
+                dgvProductList.Columns["Id"].ReadOnly = true;
+            }
+        }
+
+        private void UpdateInventryAmounts()
+        {
             foreach (BillInventry billInventry in billingContext.BillInventry.ToList())
             {
                 totalSellingAmount += billInventry.SellingPrice * billInventry.Quantity;
@@ -84,6 +95,13 @@ namespace Winforms
             List<BillInventry> bills = billingContext.BillInventry.Where(x => x.ProductName.StartsWith(searchTex)).ToList();
             dgvProductList.DataSource = bills;
             billingContext.SaveChanges();
+        }
+
+        private void DgvProductList_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            billingContext.SaveChanges();
+            UpdateInventryAmounts();
+            SetColumnEdtingTOFalse();
         }
     }
 }

@@ -57,6 +57,7 @@ namespace Winforms
             this.dgvProductList.RowTemplate.Height = 25;
             this.dgvProductList.Size = new System.Drawing.Size(506, 334);
             this.dgvProductList.TabIndex = 0;
+            this.dgvProductList.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProductList_CellEndEdit);
             // 
             // lblBarcode
             // 

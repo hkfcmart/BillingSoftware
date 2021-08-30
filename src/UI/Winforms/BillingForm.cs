@@ -16,6 +16,7 @@ namespace Winforms
 {
     public partial class BillingForm : Form
     {
+        public int BillNo { get; set; }
         public BillingForm()
         {
             InitializeComponent();
@@ -608,6 +609,54 @@ namespace Winforms
             dgvProductList.DataSource = bsBillingList;
             BillCalculation();
             cmbPartialSearch.Text = "";
+        }
+
+        private void BtnSaveBill_Click(object sender, EventArgs e)
+        {
+            if (billingContext.BillData.Count() > 0)
+            {
+                BillNo = billingContext.BillData.OrderByDescending(x => x.BillNo).FirstOrDefault().BillNo;
+            }
+            else
+            {
+                BillNo = 1;
+            }
+            if(BillNo == int.Parse(txtBillNo.Text))
+            {
+
+            }
+            foreach (var billInventry in billInventries)
+            {
+                if (string.IsNullOrWhiteSpace(billInventry.BarCode))
+                {
+                    if (billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).Any())
+                    {
+                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                        row.Quantity = row.Quantity + billInventry.Quantity;
+                        billingContext.SaveChanges();
+                    }
+                    else
+                    {
+                        DailyTable row = CreateDailyTableRow(billInventry);
+                        billingContext.DailyTable.Add(row);
+                    }
+                }
+                else
+                {
+                    if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
+                    {
+                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                        row.Quantity = row.Quantity + billInventry.Quantity;
+                        billingContext.SaveChanges();
+                    }
+                    else
+                    {
+                        DailyTable row = CreateDailyTableRow(billInventry);
+                        billingContext.DailyTable.Add(row);
+                    }
+                }
+            }
+            billingContext.SaveChanges();
         }
     }
 }

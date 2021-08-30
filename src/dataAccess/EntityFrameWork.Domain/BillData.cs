@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace EntityFrameWork.Domain
 {
-    public class BillInventry
+    public class BillData
     {
         public int Id { get; set; }
+        public bool IsCancelled { get; set; }
+        [Required]
+        public int BillNo { get; set; }
         public string BarCode { get; set; }
         [Required]
         public string ProductName { get; set; }
@@ -18,7 +21,7 @@ namespace EntityFrameWork.Domain
         public string BrandName { get; set; }
         public string Categories { get; set; }
         public string Vendor { get; set; }
-        public int ShelfNo { get; set; }        
+        public int ShelfNo { get; set; }
         public double MRP { get; set; }
         public double PurchasePrice { get; set; }
         public double SellingPrice { get; set; }

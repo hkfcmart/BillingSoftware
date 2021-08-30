@@ -35,8 +35,8 @@ namespace Winforms
             this.lblPhoneNumber = new System.Windows.Forms.Label();
             this.txtCustomerName = new System.Windows.Forms.TextBox();
             this.txtPhoneNumber = new System.Windows.Forms.TextBox();
-            this.lblOfferAmount = new System.Windows.Forms.Label();
-            this.txtOfferAmount = new System.Windows.Forms.TextBox();
+            this.lblBillNo = new System.Windows.Forms.Label();
+            this.txtBillNo = new System.Windows.Forms.TextBox();
             this.txtPlace = new System.Windows.Forms.TextBox();
             this.lblPlace = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -57,6 +57,8 @@ namespace Winforms
             this.btnAdd = new System.Windows.Forms.Button();
             this.cmbPartialSearch = new System.Windows.Forms.ComboBox();
             this.btnSearchByProductName = new System.Windows.Forms.Button();
+            this.btnLoadBill = new System.Windows.Forms.Button();
+            this.btnSaveBill = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bsBillingList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBHeader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
@@ -98,23 +100,23 @@ namespace Winforms
             this.txtPhoneNumber.Size = new System.Drawing.Size(166, 23);
             this.txtPhoneNumber.TabIndex = 3;
             // 
-            // lblOfferAmount
+            // lblBillNo
             // 
-            this.lblOfferAmount.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblOfferAmount.AutoSize = true;
-            this.lblOfferAmount.Location = new System.Drawing.Point(99, 147);
-            this.lblOfferAmount.Name = "lblOfferAmount";
-            this.lblOfferAmount.Size = new System.Drawing.Size(81, 15);
-            this.lblOfferAmount.TabIndex = 4;
-            this.lblOfferAmount.Text = "Offer Amount";
+            this.lblBillNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblBillNo.AutoSize = true;
+            this.lblBillNo.Location = new System.Drawing.Point(99, 147);
+            this.lblBillNo.Name = "lblBillNo";
+            this.lblBillNo.Size = new System.Drawing.Size(42, 15);
+            this.lblBillNo.TabIndex = 4;
+            this.lblBillNo.Text = "Bill No";
             // 
-            // txtOfferAmount
+            // txtBillNo
             // 
-            this.txtOfferAmount.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtOfferAmount.Location = new System.Drawing.Point(213, 144);
-            this.txtOfferAmount.Name = "txtOfferAmount";
-            this.txtOfferAmount.Size = new System.Drawing.Size(248, 23);
-            this.txtOfferAmount.TabIndex = 5;
+            this.txtBillNo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBillNo.Location = new System.Drawing.Point(213, 144);
+            this.txtBillNo.Name = "txtBillNo";
+            this.txtBillNo.Size = new System.Drawing.Size(165, 23);
+            this.txtBillNo.TabIndex = 5;
             // 
             // txtPlace
             // 
@@ -309,12 +311,35 @@ namespace Winforms
             this.btnSearchByProductName.UseVisualStyleBackColor = true;
             this.btnSearchByProductName.Click += new System.EventHandler(this.btnSearchByProductName_Click);
             // 
+            // btnLoadBill
+            // 
+            this.btnLoadBill.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnLoadBill.Location = new System.Drawing.Point(397, 143);
+            this.btnLoadBill.Name = "btnLoadBill";
+            this.btnLoadBill.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadBill.TabIndex = 32;
+            this.btnLoadBill.Text = "Load Bill";
+            this.btnLoadBill.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveBill
+            // 
+            this.btnSaveBill.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnSaveBill.Location = new System.Drawing.Point(607, 722);
+            this.btnSaveBill.Name = "btnSaveBill";
+            this.btnSaveBill.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveBill.TabIndex = 34;
+            this.btnSaveBill.Text = "Save Bill";
+            this.btnSaveBill.UseVisualStyleBackColor = true;
+            this.btnSaveBill.Click += new System.EventHandler(this.BtnSaveBill_Click);
+            // 
             // BillingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(895, 749);
+            this.Controls.Add(this.btnLoadBill);
+            this.Controls.Add(this.btnSaveBill);
             this.Controls.Add(this.btnSearchByProductName);
             this.Controls.Add(this.cmbPartialSearch);
             this.Controls.Add(this.btnAdd);
@@ -334,8 +359,8 @@ namespace Winforms
             this.Controls.Add(this.lblBarcode);
             this.Controls.Add(this.txtPlace);
             this.Controls.Add(this.lblPlace);
-            this.Controls.Add(this.txtOfferAmount);
-            this.Controls.Add(this.lblOfferAmount);
+            this.Controls.Add(this.txtBillNo);
+            this.Controls.Add(this.lblBillNo);
             this.Controls.Add(this.txtPhoneNumber);
             this.Controls.Add(this.txtCustomerName);
             this.Controls.Add(this.lblPhoneNumber);
@@ -358,8 +383,8 @@ namespace Winforms
         private System.Windows.Forms.Label lblPhoneNumber;
         private System.Windows.Forms.TextBox txtCustomerName;
         private System.Windows.Forms.TextBox txtPhoneNumber;
-        private System.Windows.Forms.Label lblOfferAmount;
-        private System.Windows.Forms.TextBox txtOfferAmount;
+        private System.Windows.Forms.Label lblBillNo;
+        private System.Windows.Forms.TextBox txtBillNo;
         private System.Windows.Forms.TextBox txtPlace;
         private System.Windows.Forms.Label lblPlace;
         private System.Windows.Forms.Button btnSearch;
@@ -380,5 +405,7 @@ namespace Winforms
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.ComboBox cmbPartialSearch;
         private System.Windows.Forms.Button btnSearchByProductName;
+        private System.Windows.Forms.Button btnLoadBill;
+        private System.Windows.Forms.Button btnSaveBill;
     }
 }
