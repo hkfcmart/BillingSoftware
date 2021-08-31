@@ -155,14 +155,14 @@ namespace Winforms
         }
         private void BtnPrintReciept_Click(object sender, EventArgs e)
         {
-            Print();
-            UpdatePurchase();
+            Print();            
         }
 
         private void UpdatePurchase()
         {
             DailyUpdates();
             UpdateInventry();
+            //SaveBillData();
             //MontlyUpdates();
         }
 
@@ -496,6 +496,14 @@ namespace Winforms
 
         private void BillingForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            string message = "Do you want to Save Info To DB?";
+            string title = "Save Window";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                UpdatePurchase();
+            }
             this.Hide();
             BillingSoftware billingSoftware = new();
             billingSoftware.ShowDialog();
@@ -613,6 +621,11 @@ namespace Winforms
 
         private void BtnSaveBill_Click(object sender, EventArgs e)
         {
+            //SaveBillData();
+        }
+
+        private void SaveBillData()
+        {
             if (billingContext.BillData.Count() > 0)
             {
                 BillNo = billingContext.BillData.OrderByDescending(x => x.BillNo).FirstOrDefault().BillNo;
@@ -621,42 +634,73 @@ namespace Winforms
             {
                 BillNo = 1;
             }
-            if(BillNo == int.Parse(txtBillNo.Text))
+            
+            if (!string.IsNullOrWhiteSpace(txtBillNo.Text) &&  BillNo == int.Parse(txtBillNo.Text))
             {
 
             }
-            foreach (var billInventry in billInventries)
+            else
             {
-                if (string.IsNullOrWhiteSpace(billInventry.BarCode))
+                foreach (var billInventry in billInventries)
                 {
-                    if (billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).Any())
-                    {
-                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
-                        row.Quantity = row.Quantity + billInventry.Quantity;
-                        billingContext.SaveChanges();
-                    }
-                    else
-                    {
-                        DailyTable row = CreateDailyTableRow(billInventry);
-                        billingContext.DailyTable.Add(row);
-                    }
-                }
-                else
-                {
-                    if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
-                    {
-                        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
-                        row.Quantity = row.Quantity + billInventry.Quantity;
-                        billingContext.SaveChanges();
-                    }
-                    else
-                    {
-                        DailyTable row = CreateDailyTableRow(billInventry);
-                        billingContext.DailyTable.Add(row);
-                    }
+                    BillData billData = CreateBillDataRow(billInventry, BillNo);
+                    billingContext.BillData.Add(billData);
+
+
+                    //if (string.IsNullOrWhiteSpace(billInventry.BarCode))
+                    //{
+                    //    if (billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).Any())
+                    //    {
+                    //        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                    //        row.Quantity = row.Quantity + billInventry.Quantity;
+                    //        billingContext.SaveChanges();
+                    //    }
+                    //    else
+                    //    {
+                    //        DailyTable row = CreateDailyTableRow(billInventry);
+                    //        billingContext.DailyTable.Add(row);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
+                    //    {
+                    //        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
+                    //        row.Quantity = row.Quantity + billInventry.Quantity;
+                    //        billingContext.SaveChanges();
+                    //    }
+                    //    else
+                    //    {
+                    //        DailyTable row = CreateDailyTableRow(billInventry);
+                    //        billingContext.DailyTable.Add(row);
+                    //    }
+                    //}
                 }
             }
+            txtBillNo.Text = BillNo.ToString();
             billingContext.SaveChanges();
+        }
+
+        private BillData CreateBillDataRow(BillInventry billInventry, int billNo)
+        {
+            return new BillData
+            {
+                BarCode = billInventry.BarCode,
+                BillNo = billNo,
+                BatchNo = billInventry.BatchNo,
+                BrandName = billInventry.BrandName,
+                Categories = billInventry.Categories,
+                Discount = billInventry.Discount,
+                GST = billInventry.GST,
+                HSNCode = billInventry.HSNCode,
+                MRP = billInventry.MRP,
+                ProductName = billInventry.ProductName,
+                PurchasePrice = billInventry.PurchasePrice,
+                SellingPrice = billInventry.SellingPrice,
+                ShelfNo = billInventry.ShelfNo,
+                Vendor = billInventry.Vendor,
+                Quantity = billInventry.Quantity
+            };
         }
     }
 }
