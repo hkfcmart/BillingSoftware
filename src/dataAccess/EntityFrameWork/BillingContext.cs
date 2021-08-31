@@ -14,7 +14,7 @@ namespace EntityFrameWork
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             if (!dbContextOptionsBuilder.IsConfigured)
-                dbContextOptionsBuilder.UseSqlServer(@"Data Source=DESKTOP-JR8NP15\SQLEXPRESS;Initial Catalog=BillingDatabase;User ID=AbdulKareem;Password=Bismillah_786");
+                dbContextOptionsBuilder.UseSqlServer(@"Data Source=DESKTOP-Desk1\SQLEXPRESS;Initial Catalog=BillingDatabase;User ID=AbdulKareem;Password=Bismillah_786");
         }
     }
 }
