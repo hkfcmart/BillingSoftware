@@ -320,6 +320,7 @@ namespace Winforms
             this.btnLoadBill.TabIndex = 32;
             this.btnLoadBill.Text = "Load Bill";
             this.btnLoadBill.UseVisualStyleBackColor = true;
+            this.btnLoadBill.Click += new System.EventHandler(this.BtnLoadBill_Click);
             // 
             // btnSaveBill
             // 

@@ -332,7 +332,7 @@ namespace Winforms
         public void Print()
         {
             var doc = new PrintDocument();
-            var paperSize = new PaperSize("Custom", 520, 2000);
+            var paperSize = new PaperSize("Custom", 520, 4000);
             doc.DefaultPageSettings.PaperSize = paperSize;
             doc.PrintPage += new PrintPageEventHandler(ProvideContent);
             doc.Print();
@@ -371,7 +371,7 @@ namespace Winforms
             graphics.DrawString("GST No: 29AANFH9192F1ZR", font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
-            graphics.DrawString("Customer Name: " + txtCustomerName.Text , font, new SolidBrush(System.Drawing.Color.Black), rect, format);
+            graphics.DrawString("Bill No: " + txtBillNo.Text , font, new SolidBrush(System.Drawing.Color.Black), rect, format);
             font = new Font(System.Drawing.FontFamily.GenericSansSerif, 10, System.Drawing.FontStyle.Bold);
             startY = startY + (int)(font.GetHeight() + 5);
             rect = new Rectangle(startX, startY, 283, (int)(font.GetHeight() + 5));
@@ -565,7 +565,8 @@ namespace Winforms
 
         private void CmbPartialSearch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BillInventry billInventry = productList.Where(x => ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString().EndsWith(x.BarCode)).ToList().First();
+            string barcode = ((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString().Split("-").Last().Trim();
+            BillInventry billInventry = productList.Where(x => x.BarCode == barcode).ToList().First();
             //billInventry.Quantity = 1;
             if (billInventries.Count > 0 && billInventries.Where(x => x.BarCode == billInventry.BarCode).Any())
             {
@@ -621,7 +622,7 @@ namespace Winforms
 
         private void BtnSaveBill_Click(object sender, EventArgs e)
         {
-            //SaveBillData();
+            SaveBillData();
         }
 
         private void SaveBillData()
@@ -637,7 +638,38 @@ namespace Winforms
             
             if (!string.IsNullOrWhiteSpace(txtBillNo.Text) &&  BillNo == int.Parse(txtBillNo.Text))
             {
-
+                List<BillData> bills = billingContext.BillData.Where(x => x.BillNo == int.Parse(txtBillNo.Text)).ToList();
+                foreach(var billInventry in billInventries)
+                {
+                    if (string.IsNullOrWhiteSpace(billInventry.BarCode))
+                    {
+                        if(bills.Where(x => x.BarCode == null && x.ProductName == billInventry.ProductName).Any())
+                        {
+                            var brow = bills.Where(x => x.BarCode == null && x.ProductName == billInventry.ProductName).First();
+                            brow.Quantity = billInventry.Quantity;
+                            billingContext.SaveChanges();
+                        }
+                        else
+                        {
+                            BillData billData = CreateBillDataRow(billInventry, BillNo);
+                            billingContext.BillData.Add(billData);
+                        }
+                    }
+                    else
+                    {
+                        if(bills.Where(x => x.BarCode == billInventry.BarCode).Any())
+                        {
+                            var brow = bills.Where(x => x.BarCode == billInventry.BarCode).First();
+                            brow.Quantity = billInventry.Quantity;
+                            billingContext.SaveChanges();
+                        }
+                        else
+                        {
+                            BillData billData = CreateBillDataRow(billInventry, BillNo);
+                            billingContext.BillData.Add(billData);
+                        }
+                    }
+                }
             }
             else
             {
@@ -701,6 +733,54 @@ namespace Winforms
                 Vendor = billInventry.Vendor,
                 Quantity = billInventry.Quantity
             };
+        }
+
+        private void BtnLoadBill_Click(object sender, EventArgs e)
+        {
+            billInventries = new();
+            List<BillData> bills = billingContext.BillData.Where(x => x.BillNo == int.Parse(txtBillNo.Text)).ToList();
+            foreach(BillData bill in bills)
+            {
+                BillInventry billInventry = new BillInventry
+                {
+                    BarCode = bill.BarCode,
+                    BatchNo = bill.BatchNo,
+                    BrandName = bill.BrandName,
+                    Categories = bill.Categories,
+                    Discount = bill.Discount,
+                    GST = bill.GST,
+                    HSNCode = bill.HSNCode,
+                    Id = bill.Id,
+                    Vendor = bill.Vendor,
+                    MRP = bill.MRP,
+                    ProductName = bill.ProductName,
+                    PurchasePrice = bill.PurchasePrice,
+                    Quantity = bill.Quantity,
+                    SellingPrice = bill.SellingPrice,
+                    ShelfNo = bill.ShelfNo
+                };
+                billInventries.Add(billInventry);
+            }
+            billDisplays = new();
+            itemCount = 1;
+            foreach (BillInventry billInventry in billInventries)
+            {
+                BillDisplay bill = new BillDisplay
+                {
+                    Index = itemCount++,
+                    HSNCode = billInventry.HSNCode,
+                    MRP = billInventry.MRP,
+                    ProductName = billInventry.ProductName,
+                    Quantity = billInventry.Quantity,
+                    SellingPrice = billInventry.SellingPrice,
+                    SubTotal = billInventry.SellingPrice * billInventry.Quantity,
+                };
+                billDisplays.Add(bill);
+            }
+            bsBillingList.DataSource = new();
+            bsBillingList.DataSource = billDisplays;
+            dgvProductList.DataSource = bsBillingList;
+            BillCalculation();
         }
     }
 }
