@@ -88,7 +88,7 @@ namespace Winforms
             }
                 
             if (!string.IsNullOrWhiteSpace(txtQuantity.Text))
-                billInventry.Quantity = uint.Parse(txtQuantity.Text);
+                billInventry.Quantity = int.Parse(txtQuantity.Text);
             if (!string.IsNullOrWhiteSpace(txtBatchNo.Text))
                 billInventry.BatchNo = int.Parse(txtBatchNo.Text);
             if (!string.IsNullOrWhiteSpace(txtHSNCode.Text))

@@ -191,7 +191,7 @@ namespace Winforms
                         List<BillInventry> listvalues = billingContext.BillInventry.ToList();
                         //var row = listvalues.Where(x => x.ProductName == billInventry.ProductName).First();
                         BillInventry billInventry = billingContext.BillInventry.Where(x => x.BarCode == item.BarCode).First();
-                        uint quantity = item.Quantity;
+                        int quantity = item.Quantity;
                         billInventry.Quantity -= quantity;
                         billingContext.SaveChanges();
                     }
@@ -465,7 +465,7 @@ namespace Winforms
             {
                 if(billInventries.Count > e.RowIndex)
                 {
-                    uint quantity = uint.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    int quantity = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                     if(quantity < 100)
                     {
                         billInventries[e.RowIndex].Quantity = quantity;
