@@ -1,6 +1,8 @@
 ﻿using EntityFrameWork;
 using EntityFrameWork.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -12,21 +14,28 @@ namespace Winforms
         public DailySalesForm()
         {
             InitializeComponent();
-            dgvDaliySalesData.DataSource = billingContext.DailyTable.ToList();
-            FinalCalculation();
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
+            dgvDaliySalesData.DataSource = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0).ToList();
+            List<String> dates = billingContext.MontlyTable.Select(x => x.Date.ToShortDateString()).ToList().Distinct().ToList();
+            foreach (string dateTime in dates)
+            {
+                cmbDate.Items.Add(dateTime);
+            }
+            FinalCalculation(DateTime.Today);
         }
-        private void FinalCalculation()
+        private void FinalCalculation(DateTime dateTime)
         {
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
             Double MRP = 0;
             Double Purchased = 0;
             Double Sales = 0;
             Double savings = 0;
             Double Income = 0;
-            foreach (DailyTable dailyTable in billingContext.DailyTable.ToList())
+            foreach (MontlyTable montlyTable in billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, dateTime) == 0 && DbF.DateDiffMonth(x.Date, dateTime) == 0 && DbF.DateDiffDay(x.Date, dateTime) == 0).ToList())
             {                
-                MRP = MRP + dailyTable.MRP * dailyTable.Quantity;
-                Purchased = Purchased + dailyTable.PurchasePrice * dailyTable.Quantity;
-                Sales = Sales + dailyTable.SellingPrice * dailyTable.Quantity;
+                MRP += montlyTable.MRP * montlyTable.Quantity;
+                Purchased += montlyTable.PurchasePrice * montlyTable.Quantity;
+                Sales += montlyTable.SellingPrice * montlyTable.Quantity;
             }
             savings = MRP - Sales;
             Income = MRP - Purchased;
@@ -42,6 +51,15 @@ namespace Winforms
             this.Hide();
             BillingSoftware billingSoftware = new();
             billingSoftware.ShowDialog();
+        }
+
+        private void cmbDate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
+            DateTime date = Convert.ToDateTime(((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString().Trim());
+            dgvDaliySalesData.DataSource = new();
+            dgvDaliySalesData.DataSource = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, date) == 0 && DbF.DateDiffMonth(x.Date, date) == 0 && DbF.DateDiffDay(x.Date, date) == 0).ToList();
+            FinalCalculation(date);
         }
     }
 }

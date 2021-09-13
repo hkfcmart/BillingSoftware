@@ -33,6 +33,8 @@ namespace Winforms
             this.btnInventry = new System.Windows.Forms.Button();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.btnDailySalesReport = new System.Windows.Forms.Button();
+            this.lblOurBarcode = new System.Windows.Forms.Label();
+            this.cmbOurBarCode = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnGenerateBill
@@ -40,7 +42,7 @@ namespace Winforms
             this.btnGenerateBill.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnGenerateBill.AutoSize = true;
             this.btnGenerateBill.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnGenerateBill.Location = new System.Drawing.Point(358, 144);
+            this.btnGenerateBill.Location = new System.Drawing.Point(328, 144);
             this.btnGenerateBill.Name = "btnGenerateBill";
             this.btnGenerateBill.Size = new System.Drawing.Size(108, 31);
             this.btnGenerateBill.TabIndex = 1;
@@ -85,11 +87,30 @@ namespace Winforms
             this.btnDailySalesReport.UseVisualStyleBackColor = true;
             this.btnDailySalesReport.Click += new System.EventHandler(this.btnDailySalesReport_Click);
             // 
+            // lblOurBarcode
+            // 
+            this.lblOurBarcode.AutoSize = true;
+            this.lblOurBarcode.Location = new System.Drawing.Point(211, 241);
+            this.lblOurBarcode.Name = "lblOurBarcode";
+            this.lblOurBarcode.Size = new System.Drawing.Size(70, 15);
+            this.lblOurBarcode.TabIndex = 5;
+            this.lblOurBarcode.Text = "OurBarcode";
+            // 
+            // cmbOurBarCode
+            // 
+            this.cmbOurBarCode.FormattingEnabled = true;
+            this.cmbOurBarCode.Location = new System.Drawing.Point(187, 215);
+            this.cmbOurBarCode.Name = "cmbOurBarCode";
+            this.cmbOurBarCode.Size = new System.Drawing.Size(121, 23);
+            this.cmbOurBarCode.TabIndex = 6;
+            // 
             // BillingSoftware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 375);
+            this.Controls.Add(this.cmbOurBarCode);
+            this.Controls.Add(this.lblOurBarcode);
             this.Controls.Add(this.btnDailySalesReport);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.btnInventry);
@@ -108,5 +129,7 @@ namespace Winforms
         private System.Windows.Forms.Button btnInventry;
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Button btnDailySalesReport;
+        private System.Windows.Forms.Label lblOurBarcode;
+        private System.Windows.Forms.ComboBox cmbOurBarCode;
     }
 }
