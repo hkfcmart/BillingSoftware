@@ -649,8 +649,6 @@ namespace Winforms
                         {
                             var brow = bills.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
                             int diff = billInventry.Quantity - brow.Quantity;
-                            brow.Quantity = billInventry.Quantity;
-                            billingContext.SaveChanges();                            
                             if(billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
                             {
                                 var drow = billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
@@ -673,6 +671,8 @@ namespace Winforms
                                 billingContext.MontlyTable.Add(row);
                                 billingContext.SaveChanges();
                             }
+                            brow.Quantity = billInventry.Quantity;
+                            billingContext.SaveChanges();
                         }
                         else
                         {
@@ -707,9 +707,7 @@ namespace Winforms
                         if(bills.Where(x => x.BarCode == billInventry.BarCode).Any())
                         {
                             var brow = bills.Where(x => x.BarCode == billInventry.BarCode).First();
-                            int diff = billInventry.Quantity - brow.Quantity;
-                            brow.Quantity = billInventry.Quantity;
-                            billingContext.SaveChanges();
+                            int diff = billInventry.Quantity - brow.Quantity;                            
                             if(billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
                             {
                                 var birow = billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).First();
@@ -737,6 +735,8 @@ namespace Winforms
                                 billingContext.MontlyTable.Add(row);
                                 billingContext.SaveChanges();
                             }
+                            brow.Quantity = billInventry.Quantity;
+                            billingContext.SaveChanges();
                         }
                         else
                         {
