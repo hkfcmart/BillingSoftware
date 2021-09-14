@@ -158,9 +158,10 @@ namespace Winforms
         }
         private void BtnPrintReciept_Click(object sender, EventArgs e)
         {
+            Print();
             if (!Saved)
                 SaveBillData();
-            Print();            
+                        
         }
 
         private void UpdatePurchase()
@@ -187,6 +188,7 @@ namespace Winforms
                         int quantity = item.Quantity;
                         rowBI.Quantity -= quantity;
                         billingContext.SaveChanges();
+                        item.Quantity = quantity;
                     }
                     //else
                     //{
