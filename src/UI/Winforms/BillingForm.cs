@@ -157,11 +157,11 @@ namespace Winforms
             }
         }
         private void BtnPrintReciept_Click(object sender, EventArgs e)
-        {
-            Print();
+        {            
             if (!Saved)
                 SaveBillData();
-                        
+            Print();
+
         }
 
         private void UpdatePurchase()
