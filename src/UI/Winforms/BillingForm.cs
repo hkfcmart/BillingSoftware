@@ -649,30 +649,33 @@ namespace Winforms
                         {
                             var brow = bills.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
                             int diff = billInventry.Quantity - brow.Quantity;
-                            if(billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
+                            if (diff != 0)
                             {
-                                var drow = billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
-                                drow.Quantity += diff; 
-                            }   
-                            else
-                            {
-                                DailyTable row = CreateDailyTableRow(billInventry);
-                                billingContext.DailyTable.Add(row);
-                                billingContext.SaveChanges();
+                                if (billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
+                                {
+                                    var drow = billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
+                                    drow.Quantity += diff;
+                                }
+                                else
+                                {
+                                    DailyTable row = CreateDailyTableRow(billInventry);
+                                    billingContext.DailyTable.Add(row);
+                                    billingContext.SaveChanges();
+                                }
+                                if (billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
+                                {
+                                    var mrow = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
+                                    mrow.Quantity += diff;
+                                }
+                                else
+                                {
+                                    MontlyTable row = CreateMonthlyTableRow(billInventry);
+                                    billingContext.MontlyTable.Add(row);
+                                    billingContext.SaveChanges();
+                                }
+                                brow.Quantity = billInventry.Quantity;
+                                billingContext.SaveChanges(); 
                             }
-                            if(billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
-                            {
-                                var mrow = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
-                                mrow.Quantity += diff;
-                            }
-                            else
-                            {
-                                MontlyTable row = CreateMonthlyTableRow(billInventry);
-                                billingContext.MontlyTable.Add(row);
-                                billingContext.SaveChanges();
-                            }
-                            brow.Quantity = billInventry.Quantity;
-                            billingContext.SaveChanges();
                         }
                         else
                         {
@@ -707,36 +710,39 @@ namespace Winforms
                         if(bills.Where(x => x.BarCode == billInventry.BarCode).Any())
                         {
                             var brow = bills.Where(x => x.BarCode == billInventry.BarCode).First();
-                            int diff = billInventry.Quantity - brow.Quantity;                            
-                            if(billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
+                            int diff = billInventry.Quantity - brow.Quantity;
+                            if (diff != 0)
                             {
-                                var birow = billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).First();
-                                birow.Quantity -= diff;
+                                if (billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
+                                {
+                                    var birow = billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).First();
+                                    birow.Quantity -= diff;
+                                }
+                                if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode).Any())
+                                {
+                                    var drow = billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode).First();
+                                    drow.Quantity += diff;
+                                }
+                                else
+                                {
+                                    DailyTable row = CreateDailyTableRow(billInventry);
+                                    billingContext.DailyTable.Add(row);
+                                    billingContext.SaveChanges();
+                                }
+                                if (billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && x.BarCode == billInventry.BarCode).Any())
+                                {
+                                    var mrow = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && x.BarCode == billInventry.BarCode).First();
+                                    mrow.Quantity += diff;
+                                }
+                                else
+                                {
+                                    MontlyTable row = CreateMonthlyTableRow(billInventry);
+                                    billingContext.MontlyTable.Add(row);
+                                    billingContext.SaveChanges();
+                                }
+                                brow.Quantity = billInventry.Quantity;
+                                billingContext.SaveChanges(); 
                             }
-                            if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode).Any())
-                            {
-                                var drow = billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode).First();
-                                drow.Quantity += diff;
-                            }
-                            else
-                            {
-                                DailyTable row = CreateDailyTableRow(billInventry);
-                                billingContext.DailyTable.Add(row);
-                                billingContext.SaveChanges();
-                            }
-                            if (billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && x.BarCode == billInventry.BarCode).Any())
-                            {
-                                var mrow = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0 && DbF.DateDiffDay(x.Date, DateTime.Today) == 0 && x.BarCode == billInventry.BarCode).First();
-                                mrow.Quantity += diff;
-                            }
-                            else
-                            {
-                                MontlyTable row = CreateMonthlyTableRow(billInventry);
-                                billingContext.MontlyTable.Add(row);
-                                billingContext.SaveChanges();
-                            }
-                            brow.Quantity = billInventry.Quantity;
-                            billingContext.SaveChanges();
                         }
                         else
                         {
@@ -780,35 +786,6 @@ namespace Winforms
                     BillData billData = CreateBillDataRow(billInventry, BillNo);
                     billingContext.BillData.Add(billData);
 
-
-                    //if (string.IsNullOrWhiteSpace(billInventry.BarCode))
-                    //{
-                    //    if (billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).Any())
-                    //    {
-                    //        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
-                    //        row.Quantity = row.Quantity + billInventry.Quantity;
-                    //        billingContext.SaveChanges();
-                    //    }
-                    //    else
-                    //    {
-                    //        DailyTable row = CreateDailyTableRow(billInventry);
-                    //        billingContext.DailyTable.Add(row);
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if (billingContext.DailyTable.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
-                    //    {
-                    //        var row = billingContext.DailyTable.Where(x => x.ProductName == billInventry.ProductName).First();
-                    //        row.Quantity = row.Quantity + billInventry.Quantity;
-                    //        billingContext.SaveChanges();
-                    //    }
-                    //    else
-                    //    {
-                    //        DailyTable row = CreateDailyTableRow(billInventry);
-                    //        billingContext.DailyTable.Add(row);
-                    //    }
-                    //}
                 }
 
                 txtBillNo.Text = BillNo.ToString();
