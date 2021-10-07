@@ -18,9 +18,24 @@ namespace Winforms
         public ProductRegistrationForm(string barCode = "", bool billingCall = false)
         {
             InitializeComponent();
+            if (!billingCall)
+                EnableTextEditing();
             txtBarCode.Text = barCode.Trim();
             BillingCall = billingCall;
             txtProductName.Focus();
+        }
+
+        private void EnableTextEditing()
+        {
+            this.txtBrandName.ReadOnly = false;
+            this.txtCategories.ReadOnly = false;
+            this.txtVendor.ReadOnly = false;
+            this.txtShelfNo.ReadOnly = false;
+            this.txtQuantity.ReadOnly = false;
+            this.txtBatchNo.ReadOnly = false;
+            this.txtHSNCode.ReadOnly = false;
+            this.txtDiscount.ReadOnly = false;
+            this.txtGST.ReadOnly = false;
         }
 
         public bool BillingCall { get; }
