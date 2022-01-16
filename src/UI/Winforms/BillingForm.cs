@@ -129,9 +129,9 @@ namespace Winforms
             Double subTotal = 0;
             foreach (BillDisplay billDisplay in billDisplays)
             {
-                totalAmount = totalAmount + billDisplay.MRP * billDisplay.Quantity;
+                totalAmount = totalAmount + billDisplay.MRP * billDisplay.Quantity * 1.0;
                 GST = GST + billDisplay.SellingPrice * 12 / 100;
-                billAmount = billAmount + billDisplay.SellingPrice * billDisplay.Quantity;
+                billAmount = billAmount + billDisplay.SellingPrice * billDisplay.Quantity * 1.0;
                 savings = totalAmount - billAmount;
             }
             subTotal = billAmount - GST;
@@ -469,7 +469,7 @@ namespace Winforms
                     {
                         billInventries[e.RowIndex].Quantity = quantity;
                         billDisplays[e.RowIndex].Quantity = quantity;
-                        billDisplays[e.RowIndex].SubTotal = quantity * billDisplays[e.RowIndex].SellingPrice;
+                        billDisplays[e.RowIndex].SubTotal = quantity * 1.0 * billDisplays[e.RowIndex].SellingPrice;
                         BillCalculation();
                     }             
                     else
