@@ -58,7 +58,7 @@ namespace Winforms
                 int index = billInventries.FindIndex(x => x.BarCode == barCode);
                 billDisplays[index].Quantity++;
                 billInventries[index].Quantity++;
-                billDisplays[index].SubTotal = Math.Round(billDisplays[index].SellingPrice * billDisplays[index].Quantity, 2);
+                billDisplays[index].SubTotal = Math.Round(billDisplays[index].SellingPrice * billDisplays[index].Quantity * 1.0, 2);
                 bsBillingList.DataSource = new();
                 bsBillingList.DataSource = billDisplays;
                 dgvProductList.DataSource = bsBillingList;
@@ -185,7 +185,7 @@ namespace Winforms
                         //List<BillInventry> listvalues = billingContext.BillInventry.ToList();
                         //var row = listvalues.Where(x => x.ProductName == billInventry.ProductName).First();
                         var rowBI = billingContext.BillInventry.Where(x => x.BarCode == item.BarCode).First();
-                        int quantity = item.Quantity;
+                        double quantity = item.Quantity;
                         rowBI.Quantity -= quantity;
                         billingContext.SaveChanges();
                         item.Quantity = quantity;
@@ -464,7 +464,7 @@ namespace Winforms
             {
                 if(billInventries.Count > e.RowIndex)
                 {
-                    int quantity = int.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    double quantity = double.Parse(dgvProductList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                     if(quantity < 100)
                     {
                         billInventries[e.RowIndex].Quantity = quantity;
@@ -650,7 +650,7 @@ namespace Winforms
                         if(bills.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
                         {
                             var brow = bills.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).First();
-                            int diff = billInventry.Quantity - brow.Quantity;
+                            Double diff = billInventry.Quantity - brow.Quantity;
                             if (diff != 0)
                             {
                                 if (billingContext.DailyTable.Where(x => string.IsNullOrWhiteSpace(x.BarCode) && x.ProductName == billInventry.ProductName).Any())
@@ -712,7 +712,7 @@ namespace Winforms
                         if(bills.Where(x => x.BarCode == billInventry.BarCode).Any())
                         {
                             var brow = bills.Where(x => x.BarCode == billInventry.BarCode).First();
-                            int diff = billInventry.Quantity - brow.Quantity;
+                            double diff = billInventry.Quantity - brow.Quantity;
                             if (diff != 0)
                             {
                                 if (billingContext.BillInventry.Where(x => x.BarCode == billInventry.BarCode && x.ProductName == billInventry.ProductName).Any())
