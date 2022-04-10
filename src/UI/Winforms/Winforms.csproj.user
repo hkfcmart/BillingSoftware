@@ -16,6 +16,9 @@
     <Compile Update="Inventry.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MontlySalesFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ProductRegistrationForm.cs">
       <SubType>Form</SubType>
     </Compile>

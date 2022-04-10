@@ -542,10 +542,12 @@ namespace Winforms
         {
             //dgvProductList.Remove(e.Row);
             bsBillingList.Remove(e.Row);
+            BillInventry billInventry = new BillInventry();
             for (int i = 0; i < billInventries.Count; i++)
             {
                 if (!billDisplays.Where(x => x.ProductName == billInventries[i].ProductName).Any())
                 {
+                    billInventry = billInventries[i];
                     billInventries.RemoveAt(i);
                     i--;
                 }                
