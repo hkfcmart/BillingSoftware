@@ -4,14 +4,16 @@ using EntityFrameWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameWork.Migrations
 {
     [DbContext(typeof(BillingContext))]
-    partial class BillingContextModelSnapshot : ModelSnapshot
+    [Migration("20220710200756_AddedManufacturingDateInMonthlyAddReturnTable")]
+    partial class AddedManufacturingDateInMonthlyAddReturnTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

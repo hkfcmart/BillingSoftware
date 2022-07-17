@@ -46,5 +46,18 @@ namespace Winforms
             DailySalesForm dailySalesForm = new();
             dailySalesForm.ShowDialog();
         }
+        private void Btn_MonhtlySalesForm_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            MontlySalesFrom montlySalesFrom = new();
+            montlySalesFrom.ShowDialog();
+        }
+
+        private void BtnReturn_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReturnForm returnForm = new();
+            returnForm.ShowDialog();
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace Winforms
             InitializeComponent();
             var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
             dgvDaliySalesData.DataSource = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, DateTime.Today) == 0 && DbF.DateDiffMonth(x.Date, DateTime.Today) == 0).ToList();
-            List<String> dates = billingContext.MontlyTable.Select(x => x.Date.ToString("MMM")).ToList().Distinct().ToList();
+            List<String> dates = billingContext.MontlyTable.Select(x => x.Date.ToString("yyyyMMM")).ToList().Distinct().ToList();
             foreach (string dateTime in dates)
             {
                 cmbMonth.Items.Add(dateTime);
@@ -96,6 +96,15 @@ namespace Winforms
             txtGST.Text = TotalGST.ToString();
             txtTotalGST.Text = TotalGST.ToString();
             txtTotalSales.Text = Sales.ToString();
+        }
+
+        private void CmbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var DbF = Microsoft.EntityFrameworkCore.EF.Functions;
+            DateTime date = Convert.ToDateTime(((System.Windows.Forms.ComboBox)sender).SelectedItem.ToString().Trim());
+            dgvDaliySalesData.DataSource = new();
+            dgvDaliySalesData.DataSource = billingContext.MontlyTable.Where(x => DbF.DateDiffYear(x.Date, date) == 0 && DbF.DateDiffMonth(x.Date, date) == 0).ToList();
+            FinalCalculation(date);
         }
     }
 }

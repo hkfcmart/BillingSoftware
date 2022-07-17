@@ -41,6 +41,7 @@ namespace Winforms
             this.txtTotalStockCost = new System.Windows.Forms.TextBox();
             this.lblTotalSellingCost = new System.Windows.Forms.Label();
             this.txtTotalSellingCost = new System.Windows.Forms.TextBox();
+            this.btnAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SqlInvetry)).BeginInit();
             this.SuspendLayout();
@@ -82,7 +83,7 @@ namespace Winforms
             // btnSearch
             // 
             this.btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnSearch.Location = new System.Drawing.Point(416, 31);
+            this.btnSearch.Location = new System.Drawing.Point(416, 19);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 3;
@@ -145,11 +146,22 @@ namespace Winforms
             this.txtTotalSellingCost.Size = new System.Drawing.Size(100, 23);
             this.txtTotalSellingCost.TabIndex = 9;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(416, 44);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 10;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
+            // 
             // Inventry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(559, 449);
+            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtTotalSellingCost);
             this.Controls.Add(this.lblTotalSellingCost);
             this.Controls.Add(this.txtTotalStockCost);
@@ -183,5 +195,6 @@ namespace Winforms
         private System.Windows.Forms.TextBox txtTotalStockCost;
         private System.Windows.Forms.Label lblTotalSellingCost;
         private System.Windows.Forms.TextBox txtTotalSellingCost;
+        private System.Windows.Forms.Button btnAdd;
     }
 }

@@ -56,9 +56,9 @@ namespace Winforms
             this.txtNoOfProducts = new System.Windows.Forms.TextBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.cmbPartialSearch = new System.Windows.Forms.ComboBox();
-            this.btnSearchByProductName = new System.Windows.Forms.Button();
             this.btnLoadBill = new System.Windows.Forms.Button();
             this.btnSaveBill = new System.Windows.Forms.Button();
+            this.cmbMultiEntry = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.bsBillingList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBHeader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductList)).BeginInit();
@@ -251,10 +251,10 @@ namespace Winforms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProductList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductList.Location = new System.Drawing.Point(99, 244);
+            this.dgvProductList.Location = new System.Drawing.Point(99, 269);
             this.dgvProductList.Name = "dgvProductList";
             this.dgvProductList.RowTemplate.Height = 25;
-            this.dgvProductList.Size = new System.Drawing.Size(676, 404);
+            this.dgvProductList.Size = new System.Drawing.Size(676, 379);
             this.dgvProductList.TabIndex = 26;
             this.dgvProductList.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvProductList_CellEndEdit);
             this.dgvProductList.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvProductList_UserDeletedRow);
@@ -296,20 +296,9 @@ namespace Winforms
             this.cmbPartialSearch.FormattingEnabled = true;
             this.cmbPartialSearch.Location = new System.Drawing.Point(213, 215);
             this.cmbPartialSearch.Name = "cmbPartialSearch";
-            this.cmbPartialSearch.Size = new System.Drawing.Size(332, 23);
+            this.cmbPartialSearch.Size = new System.Drawing.Size(447, 23);
             this.cmbPartialSearch.TabIndex = 30;
             this.cmbPartialSearch.SelectedIndexChanged += new System.EventHandler(this.CmbPartialSearch_SelectedIndexChanged);
-            // 
-            // btnSearchByProductName
-            // 
-            this.btnSearchByProductName.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnSearchByProductName.Location = new System.Drawing.Point(578, 215);
-            this.btnSearchByProductName.Name = "btnSearchByProductName";
-            this.btnSearchByProductName.Size = new System.Drawing.Size(75, 23);
-            this.btnSearchByProductName.TabIndex = 31;
-            this.btnSearchByProductName.Text = "Search";
-            this.btnSearchByProductName.UseVisualStyleBackColor = true;
-            this.btnSearchByProductName.Click += new System.EventHandler(this.btnSearchByProductName_Click);
             // 
             // btnLoadBill
             // 
@@ -333,15 +322,25 @@ namespace Winforms
             this.btnSaveBill.UseVisualStyleBackColor = true;
             this.btnSaveBill.Click += new System.EventHandler(this.BtnSaveBill_Click);
             // 
+            // cmbMultiEntry
+            // 
+            this.cmbMultiEntry.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cmbMultiEntry.FormattingEnabled = true;
+            this.cmbMultiEntry.Location = new System.Drawing.Point(213, 240);
+            this.cmbMultiEntry.Name = "cmbMultiEntry";
+            this.cmbMultiEntry.Size = new System.Drawing.Size(447, 23);
+            this.cmbMultiEntry.TabIndex = 35;
+            this.cmbMultiEntry.SelectedIndexChanged += new System.EventHandler(this.CmbMultiEntry_SelectedIndexChanged);
+            // 
             // BillingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(895, 749);
+            this.Controls.Add(this.cmbMultiEntry);
             this.Controls.Add(this.btnLoadBill);
             this.Controls.Add(this.btnSaveBill);
-            this.Controls.Add(this.btnSearchByProductName);
             this.Controls.Add(this.cmbPartialSearch);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtNoOfProducts);
@@ -405,8 +404,8 @@ namespace Winforms
         private System.Windows.Forms.TextBox txtNoOfProducts;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.ComboBox cmbPartialSearch;
-        private System.Windows.Forms.Button btnSearchByProductName;
         private System.Windows.Forms.Button btnLoadBill;
         private System.Windows.Forms.Button btnSaveBill;
+        private System.Windows.Forms.ComboBox cmbMultiEntry;
     }
 }

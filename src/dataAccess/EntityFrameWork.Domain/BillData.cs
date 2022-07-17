@@ -16,6 +16,7 @@ namespace EntityFrameWork.Domain
         public string BarCode { get; set; }
         [Required]
         public string ProductName { get; set; }
+        public DateTime BillDate { get; set; }
         public string HSNCode { get; set; }
         public double GST { get; set; }
         public string BrandName { get; set; }
@@ -28,5 +29,8 @@ namespace EntityFrameWork.Domain
         public double Discount { get; set; }
         public double Quantity { get; set; }
         public int BatchNo { get; set; }
+        public string ManufacturingDate { get; set; }
+        public string PurchasingDate { get; set; }
+        public string ExpiryDate { get; set; }
     }
 }

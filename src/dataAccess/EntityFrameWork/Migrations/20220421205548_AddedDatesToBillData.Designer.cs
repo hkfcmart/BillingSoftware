@@ -4,14 +4,16 @@ using EntityFrameWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameWork.Migrations
 {
     [DbContext(typeof(BillingContext))]
-    partial class BillingContextModelSnapshot : ModelSnapshot
+    [Migration("20220421205548_AddedDatesToBillData")]
+    partial class AddedDatesToBillData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,9 +33,6 @@ namespace EntityFrameWork.Migrations
 
                     b.Property<int>("BatchNo")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("BillDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("BillNo")
                         .HasColumnType("int");
@@ -264,9 +263,6 @@ namespace EntityFrameWork.Migrations
                     b.Property<double>("MRP")
                         .HasColumnType("float");
 
-                    b.Property<string>("ManufacturingDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -289,79 +285,6 @@ namespace EntityFrameWork.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MontlyTable");
-                });
-
-            modelBuilder.Entity("EntityFrameWork.Domain.ReturnBillData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("BarCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BatchNo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BillNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BrandName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Categories")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Discount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ExpiryDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("GST")
-                        .HasColumnType("float");
-
-                    b.Property<string>("HSNCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCancelled")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("MRP")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ManufacturingDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("PurchasePrice")
-                        .HasColumnType("float");
-
-                    b.Property<string>("PurchasingDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("SellingPrice")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ShelfNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Vendor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReturnBillData");
                 });
 
             modelBuilder.Entity("EntityFrameWork.Domain.UserDetails", b =>

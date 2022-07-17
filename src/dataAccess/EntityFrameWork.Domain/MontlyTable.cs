@@ -25,6 +25,7 @@ namespace EntityFrameWork.Domain
         public double Discount { get; set; }
         public double Quantity { get; set; }
         public int BatchNo { get; set; }
+        public string ManufacturingDate { get; set; }
         public DateTime Date { get; set; }
     }
 }

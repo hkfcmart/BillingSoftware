@@ -35,6 +35,8 @@ namespace Winforms
             this.btnDailySalesReport = new System.Windows.Forms.Button();
             this.lblOurBarcode = new System.Windows.Forms.Label();
             this.cmbOurBarCode = new System.Windows.Forms.ComboBox();
+            this.btn_MonhtlySalesForm = new System.Windows.Forms.Button();
+            this.btnReturn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGenerateBill
@@ -98,17 +100,42 @@ namespace Winforms
             // 
             // cmbOurBarCode
             // 
+            this.cmbOurBarCode.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbOurBarCode.FormattingEnabled = true;
             this.cmbOurBarCode.Location = new System.Drawing.Point(187, 215);
             this.cmbOurBarCode.Name = "cmbOurBarCode";
             this.cmbOurBarCode.Size = new System.Drawing.Size(121, 23);
             this.cmbOurBarCode.TabIndex = 6;
             // 
+            // btn_MonhtlySalesForm
+            // 
+            this.btn_MonhtlySalesForm.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btn_MonhtlySalesForm.Location = new System.Drawing.Point(339, 209);
+            this.btn_MonhtlySalesForm.Name = "btn_MonhtlySalesForm";
+            this.btn_MonhtlySalesForm.Size = new System.Drawing.Size(136, 32);
+            this.btn_MonhtlySalesForm.TabIndex = 7;
+            this.btn_MonhtlySalesForm.Text = "Monhtly Sales Report";
+            this.btn_MonhtlySalesForm.UseVisualStyleBackColor = true;
+            this.btn_MonhtlySalesForm.Click += new System.EventHandler(this.Btn_MonhtlySalesForm_Click);
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnReturn.Location = new System.Drawing.Point(523, 209);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(146, 23);
+            this.btnReturn.TabIndex = 8;
+            this.btnReturn.Text = "Return";
+            this.btnReturn.UseVisualStyleBackColor = true;
+            this.btnReturn.Click += new System.EventHandler(this.BtnReturn_Click);
+            // 
             // BillingSoftware
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(759, 375);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.btn_MonhtlySalesForm);
             this.Controls.Add(this.cmbOurBarCode);
             this.Controls.Add(this.lblOurBarcode);
             this.Controls.Add(this.btnDailySalesReport);
@@ -131,5 +158,7 @@ namespace Winforms
         private System.Windows.Forms.Button btnDailySalesReport;
         private System.Windows.Forms.Label lblOurBarcode;
         private System.Windows.Forms.ComboBox cmbOurBarCode;
+        private System.Windows.Forms.Button btn_MonhtlySalesForm;
+        private System.Windows.Forms.Button btnReturn;
     }
 }

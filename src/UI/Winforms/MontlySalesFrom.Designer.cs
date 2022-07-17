@@ -264,6 +264,7 @@ namespace Winforms
             this.cmbMonth.Name = "cmbMonth";
             this.cmbMonth.Size = new System.Drawing.Size(121, 23);
             this.cmbMonth.TabIndex = 46;
+            this.cmbMonth.SelectedIndexChanged += new System.EventHandler(this.CmbMonth_SelectedIndexChanged);
             // 
             // txtIncome
             // 

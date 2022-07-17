@@ -63,12 +63,15 @@ namespace Winforms
             }
             else
             {
-                this.Hide();
-                ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text);
-                productRegistrationForm.ShowDialog();
+                OpenRegistrationForm();
             }
         }
-
+        private void OpenRegistrationForm()
+        {
+            this.Hide();
+            ProductRegistrationForm productRegistrationForm = new(txtBarcode.Text);
+            productRegistrationForm.ShowDialog();
+        }
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             SearchBarCode();
@@ -102,6 +105,11 @@ namespace Winforms
             billingContext.SaveChanges();
             UpdateInventryAmounts();
             SetColumnEdtingTOFalse();
+        }
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            OpenRegistrationForm();
         }
     }
 }

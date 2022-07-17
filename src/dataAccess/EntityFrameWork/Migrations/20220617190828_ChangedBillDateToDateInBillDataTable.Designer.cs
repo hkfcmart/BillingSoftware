@@ -4,14 +4,16 @@ using EntityFrameWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameWork.Migrations
 {
     [DbContext(typeof(BillingContext))]
-    partial class BillingContextModelSnapshot : ModelSnapshot
+    [Migration("20220617190828_ChangedBillDateToDateInBillDataTable")]
+    partial class ChangedBillDateToDateInBillDataTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,9 +266,6 @@ namespace EntityFrameWork.Migrations
                     b.Property<double>("MRP")
                         .HasColumnType("float");
 
-                    b.Property<string>("ManufacturingDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -347,8 +346,8 @@ namespace EntityFrameWork.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
-                    b.Property<DateTime>("ReturnDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ReturnDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("SellingPrice")
                         .HasColumnType("float");
